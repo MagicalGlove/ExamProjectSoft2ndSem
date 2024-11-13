@@ -17,7 +17,7 @@ COPY . .
 COPY .env.production .env
 
 # Build the Vite app (production build)
-RUN npm run build
+RUN npm run buildProd
 
 # Production stage: Use a lightweight server to serve the static files
 FROM node:16-slim
