@@ -13,8 +13,11 @@ RUN npm install --frozen-lockfile
 # Copy the entire project to the container
 COPY . .
 
+# Copy the environment file for the appropriate environment
+COPY .env.production .env
+
 # Build the Vite app (production build)
-RUN npm run build
+RUN tsc -b && vite build --mode production
 
 # Production stage: Use a lightweight server to serve the static files
 FROM node:16-slim
