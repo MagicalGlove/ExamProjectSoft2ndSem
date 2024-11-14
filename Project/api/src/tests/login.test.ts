@@ -1,20 +1,11 @@
 import request from 'supertest';
 import app from '../index.ts';
 import * as userRepository from '../loginService/userRepository.ts';
-import {AppDataSource} from "../ormconfig.ts";
 
 jest.mock('../loginService/userRepository');
 
 describe('POST /login', () => {
     const mockUser = { id: 1, username: 'testUser', role: 'user' };
-
-    beforeAll(async () => {
-        await AppDataSource.initialize();
-    });
-
-    afterAll(async () => {
-        await AppDataSource.destroy();
-    });
 
     beforeEach(() => {
         jest.resetAllMocks()
