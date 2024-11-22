@@ -22,15 +22,12 @@ describe('Database Functionality for createFeedbackAndLinkOrder', () => {
     });
 
     afterAll(async () => {
-        clearDatabase();
-
+        await clearDatabase();
         await AppDataSource.destroy();
-        // Doomed, this no work
     });
 
     it('should test get orderById', async () => {
         const orders = await GetAllOrdersById('672de88ff54107237ff75565');
-
         expect(orders).not.toBeNull();
     });
 });
