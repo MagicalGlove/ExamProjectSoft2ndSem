@@ -2,7 +2,7 @@ export enum USER_ROLES {
     ADMIN = 'admin',
     CUSTOMER = 'customer',
     DELIVERY = 'delivery',
-    RESTAURANT = 'restaurant'
+    RESTAURANT = 'restaurant',
 }
 
 export interface User {
@@ -12,9 +12,10 @@ export interface User {
     role: USER_ROLES;
     address?: string;
     restaurant?: string;
-  }
+    phoneNumber?: number;
+}
 
 export interface Credentials {
     username: string;
     password: string;
-  }
+}

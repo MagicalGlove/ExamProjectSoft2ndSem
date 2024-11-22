@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../index.ts';
-import * as restaurantRepository from '../RestaurantService/dbFunctions.ts';
+import app from '../../../index.ts';
+import * as restaurantRepository from '../../../RestaurantService/dbFunctions.ts';
 
-jest.mock('../RestaurantService/dbFunctions.ts');
+jest.mock('../../../RestaurantService/dbFunctions.ts');
 
 describe('GET /restaurants', () => {
 

@@ -21,7 +21,10 @@ export default [
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "warn",
-      "no-console": "warn",
+      "no-console": [
+        "warn",
+        { allow: ["error"] },
+      ],
       "import/extensions": ["error", "ignorePackages"], // Your import rule
     },
   },

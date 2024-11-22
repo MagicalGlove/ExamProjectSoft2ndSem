@@ -30,3 +30,18 @@ export class Restaurant {
     @Column()
     menu!: ObjectId[];
 }
+
+@Entity('addresses')
+export class Address {
+    @ObjectIdColumn()
+    _id!: ObjectId;
+
+    @Column()
+    street!: string;
+
+    @Column()
+    city!: string;
+
+    @Column()
+    postalCode!: string;
+}

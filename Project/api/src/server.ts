@@ -1,8 +1,12 @@
-import app from "./index.ts";
+import app from './index.ts';
+import dotenv from 'dotenv'
 import 'reflect-metadata';
-import { AppDataSource } from "./ormconfig.ts";
+import { AppDataSource } from './ormconfig.ts';
+import { runConsumer } from './messagingService/kafkaAdapter.ts';
 
-const port = 3001;
+dotenv.config();
+
+const port = process.env.PORT
 
 AppDataSource.initialize()
     .then(() => {
@@ -10,7 +14,10 @@ AppDataSource.initialize()
         app.listen(port, () => {
             console.log(`Server is running at http://localhost:${port}`); // eslint-disable-line no-console
         });
+
+        //Kafka listener for events
+        runConsumer().catch(console.error);
     })
     .catch((err) => {
-        console.error('Error during Data Source initialization:', err); // eslint-disable-line no-console
+        console.error('Error during Data Source initialization:', err);
     });

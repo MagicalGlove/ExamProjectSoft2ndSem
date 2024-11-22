@@ -1,20 +1,25 @@
 import { Order } from './Order.ts';
 import { ObjectId } from 'mongodb';
 import { AddOrder } from './OrderAndFeedbackRepository.ts';
+import { OrderItem } from './types/order.ts';
 
 export class OrderFactory {
     public async CreateOrder(
         customerID: ObjectId,
         restaurantID: ObjectId,
-        items: ObjectId[],
-        address: ObjectId
+        address: ObjectId,
+        totalPrice: number,
+        orderItemList: OrderItem[],
+        timestamp: Date
     ): Promise<Order | null> {
-        const order = new Order();
-
-        order.customerID = customerID;
-        order.restaurantID = restaurantID;
-        order.menuItemIDList = items;
-        order.address = address;
+        const order = {
+            customerID,
+            restaurantID,
+            address,
+            totalPrice,
+            orderItemList,
+            timestamp,
+        };
 
         return await AddOrder(order);
     }

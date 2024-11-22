@@ -1,11 +1,18 @@
 import { DataSource } from 'typeorm';
 import dotenv from 'dotenv';
 import { User } from './loginService/User.ts';
-import { MenuItem, Restaurant } from './RestaurantService/Restaurant.ts';
+import {
+    MenuItem,
+    Restaurant,
+    Address,
+} from './RestaurantService/Restaurant.ts';
+import { Order } from './monolithOrderAndFeedback/Order.ts';
+import { Feedback } from './monolithOrderAndFeedback/Feedback.ts';
 
 dotenv.config();
 
-const databaseName = 'SoftExam';
+const isTestEnv = process.env.NODE_ENV === 'test';
+const databaseName = isTestEnv ? 'SoftExamTest' : 'SoftExam';
 
 export const AppDataSource = new DataSource({
     type: 'mongodb',
@@ -15,5 +22,5 @@ export const AppDataSource = new DataSource({
     useUnifiedTopology: true,
     synchronize: true,
     logging: true,
-    entities: [User, Restaurant, MenuItem],
+    entities: [User, Restaurant, MenuItem, Order, Feedback, Address],
 });

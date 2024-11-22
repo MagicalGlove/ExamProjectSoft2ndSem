@@ -1,67 +1,186 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { validateCredentials } from './loginService/userRepository.ts';
 import { getAllRestaurants } from './RestaurantService/dbFunctions.ts';
-import { createOrder } from './monolithOrderAndFeedback/OrderAndFeedbackService.ts';
+import {
+    createOrder,
+    getAllAcceptedOrders,
+    getAllOrders,
+} from './monolithOrderAndFeedback/OrderAndFeedbackService.ts';
+import {
+    createFeedbackAndLinkOrder,
+    GetAllOrdersById,
+} from './monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
+import { messagingRoutes } from './messagingService/messaging.ts';
+import { loginRouter } from './loginService/loginRoutes.ts';
+import { UserCredentials } from './interfaces/users.ts';
+import { loginServiceValidateCredentials } from './adapters/loginServiceAdapter.ts';
+import { CustomError } from './types/generic.ts';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-        app.post('/login', async (req: Request, res: Response) => {
-            try {
-                const { username, password } = req.body;
+app.use('/loginService', loginRouter);
 
-                const user = await validateCredentials(username, password);
+app.post('/login', async (req: Request, res: Response) => {
+    try {
+        const credentials: UserCredentials = req.body;
 
-                if (!user) {
-                    res.status(401).json({
-                        error: 'Invalid username or password',
-                    });
-                    return;
-                }
+        const user = await loginServiceValidateCredentials(credentials);
 
-                res.json(user);
-            } catch (error) {
-                console.error('Error finding user:', error); // eslint-disable-line no-console
-                res.status(500).json({ error: 'Error finding user' });
-            }
+        if (!user) {
+            res.status(401).json({
+                error: 'Invalid username or password',
+            });
+            return;
+        }
+
+        res.json(user);
+    } catch (error: unknown) {
+        if ((error as CustomError).response?.status === 401) {
+            console.error('Error:', (error as CustomError).response.data.error);
+            res.status(401).json({
+                error: 'Invalid username or password',
+            });
+            return;
+        }
+        res.status(500).json({
+            error: 'Error finding user',
+        });
+    }
+});
+
+app.get('/restaurants', async (req: Request, res: Response) => {
+    try {
+        const restaurants = await getAllRestaurants();
+
+        res.json(restaurants);
+    } catch (error) {
+        console.error('Error fetching restaurants:', error);
+        res.status(500).json({
+            error: 'An error occurred while fetching restaurants',
+        });
+    }
+});
+
+app.post('/createOrder', async (req: Request, res: Response) => {
+    try {
+        const {
+            userID,
+            restaurantID,
+            menuItems,
+            address,
+            totalPrice,
+            timestamp,
+        } = req.body;
+
+        const order = await createOrder(
+            userID,
+            restaurantID,
+            menuItems,
+            address,
+            totalPrice,
+            timestamp
+        );
+
+        if (!order) {
+            res.status(401).json({ error: 'Invalid order data' });
+            return;
+        }
+
+        res.json(order);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({ error: 'Error creating order' });
+    }
+});
+
+app.get('/orders', async (req: Request, res: Response) => {
+    try {
+        const orders = await getAllOrders();
+
+        if (!orders) {
+            res.status(401).json({
+                error: 'No orders found',
+            });
+            return;
+        }
+
+        res.json(orders);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({
+            error: 'An error occurred while fetching orders',
+        });
+    }
+});
+
+app.post('/ordersById', async (req: Request, res: Response) => {
+    try {
+        const { restaurantID } = req.body;
+
+        const orders = await GetAllOrdersById(restaurantID);
+
+        if (!orders) {
+            res.status(401).json({
+                error: 'No orders found',
+            });
+            return;
+        }
+
+        res.json(orders);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({
+            error: 'An error occurred while fetching orders',
+        });
+    }
+});
+
+app.get('/acceptedOrders', async (req: Request, res: Response) => {
+    try {
+        const orders = await getAllAcceptedOrders();
+
+        if (!orders) {
+            res.status(401).json({
+                error: 'No orders found',
+            });
+            return;
+        }
+
+        res.json(orders);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({
+            error: 'An error occurred while fetching orders',
+        });
+    }
+});
+
+app.post('/createFeedback', async (req: Request, res: Response) => {
+    try {
+        const { foodRating, overallRating, deliveryRating, orderId } = req.body;
+
+        const feedback = await createFeedbackAndLinkOrder({
+            foodRating,
+            overallRating,
+            deliveryRating,
+            orderId,
         });
 
-        app.get('/restaurants', async (req: Request, res: Response) => {
-            try {
-                const restaurants = await getAllRestaurants();
+        if (!feedback) {
+            res.status(401).json({ error: 'Invalid feedback data' });
+            return;
+        }
 
-                res.json(restaurants);
-            } catch (error) {
-                console.error('Error fetching restaurants:', error); // eslint-disable-line no-console
-                res.status(500).json({
-                    error: 'An error occurred while fetching restaurants',
-                });
-            }
-        });
-        app.post('/createOrder', async (req: Request, res: Response) => {
-            try {
-                const { userID, restaurantID, menuItems, address } = req.body;
+        res.json(feedback);
+    } catch (error) {
+        console.error('Error creating feedback:', error);
+        res.status(500).json({ error: 'Error creating feedback' });
+    }
+});
 
-                const order = await createOrder(
-                    userID,
-                    restaurantID,
-                    menuItems,
-                    address
-                );
-
-                if (!order) {
-                    res.status(401).json({ error: 'Invalid body' });
-                    return;
-                }
-
-                res.json(order);
-            } catch (error) {
-                console.error('Error creating order:', error); // eslint-disable-line no-console
-                res.status(500).json({ error: 'Server error' });
-            }
-        });
+messagingRoutes(app);
 
 export default app;
