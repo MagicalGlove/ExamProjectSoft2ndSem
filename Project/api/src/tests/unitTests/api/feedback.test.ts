@@ -7,7 +7,7 @@ import {
     mockFeedbackPayloadAPI,
 } from '../../mocks/feedbackMocksAPI.ts';
 
-jest.mock('../../../monolithOrderAndFeedback/orderAndFeedbackRepository');
+jest.mock('../../../monolithOrderAndFeedback/OrderAndFeedbackRepository');
 
 describe('POST /createFeedback', () => {
     beforeEach(() => {

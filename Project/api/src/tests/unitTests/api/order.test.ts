@@ -9,7 +9,7 @@ import {
     mockOrderRejectAPI,
 } from '../../mocks/orderMocksAPI.ts';
 
-jest.mock('../../../monolithOrderAndFeedback/orderAndFeedbackService');
+jest.mock('../../../monolithOrderAndFeedback/OrderAndFeedbackService');
 jest.mock('../../../monolithOrderAndFeedback/OrderAndFeedbackRepository');
 
 describe('Post /create', () => {
