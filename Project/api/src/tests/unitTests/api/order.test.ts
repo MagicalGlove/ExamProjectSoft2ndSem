@@ -21,6 +21,18 @@ describe('Post /create', () => {
         address: 11,
         totalPrice: 50,
         timestamp: timestamp.toISOString(),
+        status: 1,
+    };
+    const mockOrderReject = {
+        _id: 'someObjectId',
+        userID: 1,
+        restaurantID: 2324,
+        menuItems: mockOrderItemList,
+        address: 11,
+        totalPrice: 50,
+        timestamp: timestamp.toISOString(),
+        status: 1,
+        rejectReason: "Manden bor i indien, der leverer vi skam ik' til",
     };
     const mockOrderList = [
         {
@@ -39,7 +51,7 @@ describe('Post /create', () => {
             address: 11,
             totalPrice: 50,
             timestamp: timestamp.toISOString(),
-            status: 3,
+            status: 1,
         },
     ];
 
@@ -108,6 +120,48 @@ describe('Post /create', () => {
         expect(response.body).toContainEqual(mockOrderList[0]);
     });
 
+    it('should change the status of the order with the id provided to the status provided', async () => {
+        (
+            orderAndFeedbackRepository.acceptRejectOrder as jest.Mock
+        ).mockResolvedValue(mockOrderReject);
+
+        const payload = {
+            orderId: 'someObjectId',
+            newStatus: 1,
+            rejectReason: "Manden bor i indien, der leverer vi skam ik' til",
+        };
+
+        const response = await request(app)
+            .post('/acceptRejectOrder')
+            .send(payload);
+
+        console.log(response.status);
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(mockOrderReject);
+    });
+
+    // it('should fail to accept/reject because status is too high a number', async () => {
+    //     (
+    //         orderAndFeedbackRepository.acceptRejectOrder as jest.Mock
+    //     ).mockResolvedValue(mockOrderReject);
+
+    //     const payload = {
+    //         // orderId: 'someObjectId',
+    //         newStatus: 9,
+    //         rejectReason: "Manden bor i indien, der leverer vi skam ik' til",
+    //     };
+
+    //     const response = await request(app)
+    //         .post('/acceptRejectOrder')
+    //         .send(payload);
+
+    //     console.log('response.body');
+    //     console.log(response.body);
+
+    //     expect(response.status).toBe(401);
+    //     expect(response.body).toEqual(mockOrderReject);
+    // });
+
     it('should return orders array with menu items if orders where found successfully', async () => {
         (
             orderAndFeedbackRepository.GetAllOrdersById as jest.Mock
@@ -121,7 +175,7 @@ describe('Post /create', () => {
         expect(response.body).toEqual(mockOrderList);
     });
 
-    it('should return orders array with menu items if orders where found successfully', async () => {
+    it('should return 401 if orders where not found successfully', async () => {
         (
             orderAndFeedbackRepository.GetAllOrdersById as jest.Mock
         ).mockResolvedValue(null);

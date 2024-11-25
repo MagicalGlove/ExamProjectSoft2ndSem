@@ -1,5 +1,4 @@
-﻿import { PieItemIdentifier } from '@mui/x-charts';
-import { LineData, PerRestaurantsData } from '../types/chartSerieData';
+﻿import { LineData, PerRestaurantsData } from '../types/chartSerieData';
 import { Order } from '../types/orders';
 
 export const updateLineChartIncome = (
@@ -37,7 +36,7 @@ export const updateLineChartIncome = (
         }
     });
 
-    return result.sort(l => -l.x);
+    return result.sort(l => l.x);
 };
 
 export const updateLineChartCount = (
@@ -75,5 +74,67 @@ export const updateLineChartCount = (
         }
     });
 
-    return result.sort(l => -l.x);
+    return result.sort(l => l.x);
 };
+
+export const orderCountToLineChartSeries = (orders: Order[]) => {
+    if(orders.length == 0) {
+        return [];
+    }
+
+    const result: LineData[] = [];
+
+    orders.forEach(order => {
+        const date = new Date(order.timestamp);
+        const xDate = Math.floor(date.getTime() / 86400000 / 7);
+        let found = false;
+
+        result.forEach((r) => {
+            if (r.x == xDate) {
+                found = true;
+                r.y += 1;
+            }
+        });
+
+        if (!found) {
+            result.push({
+                x: xDate,
+                y: 1,
+                label: (date.getUTCFullYear()) + ' / ' + ((Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 1).getTime()) / 86400000 / 7) + 1)),
+            });
+        }
+    })
+
+    return result.sort(l => -l.x);
+}
+
+export const orderIncomeToLineChartSeries = (orders: Order[]) => {
+    if(orders.length == 0) {
+        return [];
+    }
+
+    const result: LineData[] = [];
+
+    orders.forEach(order => {
+        const date = new Date(order.timestamp);
+        const xDate = Math.floor(date.getTime() / 86400000 / 7);
+        let found = false;
+
+        result.forEach((r) => {
+            if (r.x == xDate) {
+                found = true;
+                r.y += order.totalPrice;
+            }
+        });
+
+        if (!found) {
+            result.push({
+                x: xDate,
+                y: order.totalPrice,
+                label: (date.getUTCFullYear()) + ' / ' + ((Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 1).getTime()) / 86400000 / 7) + 1)),
+            });
+        }
+    })
+
+    return result.sort(l => -l.x);
+}

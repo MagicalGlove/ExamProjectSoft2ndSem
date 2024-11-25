@@ -7,6 +7,7 @@ import {
     getAllOrders,
 } from './monolithOrderAndFeedback/OrderAndFeedbackService.ts';
 import {
+    acceptRejectOrder,
     createFeedbackAndLinkOrder,
     GetAllOrdersById,
 } from './monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
@@ -154,6 +155,27 @@ app.get('/acceptedOrders', async (req: Request, res: Response) => {
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
+        });
+    }
+});
+
+app.post('/acceptRejectOrder', async (req: Request, res: Response) => {
+    try {
+        const { id, newStatus, rejectReason } = req.body;
+        const order = await acceptRejectOrder(id, newStatus, rejectReason);
+
+        if (!order) {
+            res.status(401).json({
+                error: 'No orders found',
+            });
+            return;
+        }
+
+        res.json(order);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({
+            error: 'Error occured: ' + error,
         });
     }
 });

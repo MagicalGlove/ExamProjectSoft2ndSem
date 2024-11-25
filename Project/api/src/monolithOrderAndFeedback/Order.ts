@@ -40,4 +40,7 @@ export class Order {
 
     @Column()
     timestamp!: Date;
+
+    @Column()
+    rejectReason?: string | null;
 }

@@ -3,7 +3,11 @@ import { Credentials } from '../types/users';
 import { VITE_BASE_URL } from '../constants';
 import { Restaurant } from '../types/restaurants';
 import { restaurantsMockList } from './restaurant';
-import { acceptedOrdersMockList, ordersMockDataList } from './orders';
+import {
+    acceptedOrdersMockList,
+    acceptRejectOrderMock,
+    ordersMockDataList,
+} from './orders';
 import { Order } from '../types/orders';
 
 export const handlers = [
@@ -51,6 +55,15 @@ export const handlers = [
 
     http.post<never, Order[]>(`${VITE_BASE_URL}/ordersById`, async () => {
         return new Response(JSON.stringify(ordersMockDataList), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }),
+
+    http.post<never, Order>(`${VITE_BASE_URL}/acceptRejectOrder`, async () => {
+        return new Response(JSON.stringify(acceptRejectOrderMock), {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',

@@ -8,6 +8,7 @@ export interface Order {
     feedbackID: string;
     timestamp: string;
     orderItemList: OrderItem[];
+    rejectReason?: string;
 }
 
 export interface Address {
@@ -36,4 +37,10 @@ export interface MenuItem {
     name: string;
     price: number;
     availability: boolean;
+}
+
+export interface FeedbackCollection {
+    foodRating: number | null;
+    overallRating: number | null;
+    deliveryRating: number | null;
 }

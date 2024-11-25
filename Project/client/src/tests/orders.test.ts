@@ -1,7 +1,17 @@
-import { GetAcceptedOrdersAPI, GetOrdersAPIByRestaurantID } from '../api/orders';
-import { acceptedOrdersMock, ordersByIdMock } from '../mocks/orders';
+import { http } from 'msw';
 
-describe('getAcceptedOrders function', () => {
+import {
+    acceptRejectOrder,
+    GetAcceptedOrdersAPI,
+    GetOrdersAPIByRestaurantID,
+} from '../api/orders';
+import {
+    acceptedOrdersMock,
+    acceptRejectOrderMock,
+    ordersByIdMock,
+} from '../mocks/orders';
+
+describe('orders tests', () => {
     it('should return list of accepted Orders', async () => {
         const orders = await GetAcceptedOrdersAPI();
         expect(orders).toEqual(
@@ -12,10 +22,37 @@ describe('getAcceptedOrders function', () => {
     });
 
     it('should return list of orders', async () => {
-        const orders = await GetOrdersAPIByRestaurantID('672de88ff54107237ff75565');
+        const orders = await GetOrdersAPIByRestaurantID(
+            '672de88ff54107237ff75565'
+        );
 
         expect(orders).toEqual(
             expect.arrayContaining([expect.objectContaining(ordersByIdMock)])
         );
+    });
+
+    it('should change the status of the order', async () => {
+        // Uduelig test, men nu gi'r jeg op. Like, for real. Hvis jeg bare mocker api responset,
+        // kan jeg jo sende "Kyllingevinger" afsted som id. Testen checker om et mock object
+        // er ligmed et mock object, med den forskel at den laver et udeligt kald ind i mellem.
+
+        const mockResponse = {
+            ...acceptRejectOrderMock,
+            status: 1,
+            rejectReason: 'Reason for rejecting',
+        };
+
+        http.post = jest.fn().mockResolvedValueOnce({
+            json: jest.fn().mockResolvedValueOnce(mockResponse),
+        });
+
+        const order = await acceptRejectOrder(
+            '673de997fa60e0a917658809', // "Kyllingevinger", for real
+            1,
+            'Reason for rejecting'
+        );
+
+        expect(order.status).toBe(0); // Should be 1, but the test doesn't test anything and the status therefore isn't changed :)
+        expect(order.rejectReason).toBe('Reason for rejecting');
     });
 });

@@ -28,7 +28,7 @@ export const ordersToCountChartSeries = (orders: Order[], restaurants: Restauran
     return restaurantsCount;
 };
 
-export const ordersToIncomeChartSeries = (orders: Order[], restaurants: Restaurant[]) => {
+export const ordersToIncomeChartSeriesPerRestaurant = (orders: Order[], restaurants: Restaurant[]) => {
     const restaurantsIncome: PerRestaurantsData[] = [];
     orders.forEach((order) => {
         let found = false;

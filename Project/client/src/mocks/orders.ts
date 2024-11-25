@@ -104,6 +104,31 @@ export const ordersByIdMock = {
     ],
     timestamp: '2024-11-20T12:00:00.000Z',
 };
+export const acceptRejectOrderMock = {
+    _id: '673de997fa60e0a917658804',
+    customerID: '672df427f54107237ff75565',
+    restaurantID: '672de88ff54107237ff75565',
+    status: 0,
+    address: {
+        _id: '672df723f54107237ff75573',
+        street: 'Maple Street 12',
+        city: 'Aarhus',
+        postalCode: '1001',
+    },
+    totalPrice: 50,
+    orderItemList: [
+        {
+            menuItemId: '672de8c4f54107237ff75546',
+            quantity: 2,
+        },
+        {
+            menuItemId: '672de8c4f54107237ff75548',
+            quantity: 1,
+        },
+    ],
+    timestamp: '2024-11-20T12:00:00.000Z',
+    rejectReason: 'Reason for rejecting',
+};
 
 export const ordersMockDataList = [ordersByIdMock];
 export const acceptedOrdersMockList = [acceptedOrdersMock, acceptedOrdersMock2];
