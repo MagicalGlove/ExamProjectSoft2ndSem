@@ -11,11 +11,7 @@ async function validateCredentials(credentials: UserCredentials) {
         username: username,
         password: password
     } });
-
-    if (!user) {
-        return null;
-    }
-
+    
     return user;
 }
 

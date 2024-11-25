@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1732292197656" clover="3.2.0">
-  <project timestamp="1732292197656" name="All files">
-    <metrics statements="146" coveredstatements="139" conditionals="32" coveredconditionals="28" methods="42" coveredmethods="38" elements="220" coveredelements="205" complexity="0" loc="146" ncloc="146" packages="3" files="8" classes="8"/>
+<coverage generated="1732537797762" clover="3.2.0">
+  <project timestamp="1732537797762" name="All files">
+    <metrics statements="164" coveredstatements="149" conditionals="38" coveredconditionals="28" methods="48" coveredmethods="42" elements="250" coveredelements="219" complexity="0" loc="164" ncloc="164" packages="3" files="8" classes="8"/>
     <package name="api">
-      <metrics statements="31" coveredstatements="24" conditionals="5" coveredconditionals="1" methods="10" coveredmethods="8"/>
-      <file name="login.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\api\login.ts">
+      <metrics statements="46" coveredstatements="31" conditionals="11" coveredconditionals="1" methods="14" coveredmethods="10"/>
+      <file name="login.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\api\login.ts">
         <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -14,8 +14,8 @@
         <line num="13" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
       </file>
-      <file name="orders.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\api\orders.ts">
-        <metrics statements="17" coveredstatements="11" conditionals="3" coveredconditionals="0" methods="6" coveredmethods="4"/>
+      <file name="orders.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\api\orders.ts">
+        <metrics statements="32" coveredstatements="18" conditionals="9" coveredconditionals="0" methods="10" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -24,17 +24,32 @@
         <line num="12" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="23" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="34" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="25" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="56" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="82" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
       </file>
-      <file name="restaurants.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\api\restaurants.ts">
+      <file name="restaurants.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\api\restaurants.ts">
         <metrics statements="7" coveredstatements="6" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -47,7 +62,7 @@
     </package>
     <package name="chartFunctions">
       <metrics statements="90" coveredstatements="90" conditionals="24" coveredconditionals="24" methods="24" coveredmethods="22"/>
-      <file name="linechart.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\chartFunctions\linechart.ts">
+      <file name="linechart.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\chartFunctions\linechart.ts">
         <metrics statements="64" coveredstatements="64" conditionals="18" coveredconditionals="18" methods="16" coveredmethods="14"/>
         <line num="4" count="1" type="stmt"/>
         <line num="9" count="2" type="cond" truecount="3" falsecount="0"/>
@@ -114,7 +129,7 @@
         <line num="131" count="1" type="stmt"/>
         <line num="139" count="1" type="stmt"/>
       </file>
-      <file name="piechart.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\chartFunctions\piechart.ts">
+      <file name="piechart.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\chartFunctions\piechart.ts">
         <metrics statements="26" coveredstatements="26" conditionals="6" coveredconditionals="6" methods="8" coveredmethods="8"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -145,36 +160,39 @@
       </file>
     </package>
     <package name="mocks">
-      <metrics statements="25" coveredstatements="25" conditionals="3" coveredconditionals="3" methods="8" coveredmethods="8"/>
-      <file name="handlers.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\mocks\handlers.ts">
-        <metrics statements="17" coveredstatements="17" conditionals="3" coveredconditionals="3" methods="8" coveredmethods="8"/>
+      <metrics statements="28" coveredstatements="28" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="10"/>
+      <file name="handlers.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\mocks\handlers.ts">
+        <metrics statements="19" coveredstatements="19" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="10"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="16" count="2" type="cond" truecount="3" falsecount="0"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="52" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="20" count="2" type="cond" truecount="3" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
       </file>
-      <file name="orders.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\mocks\orders.ts">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="orders.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\mocks\orders.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
         <line num="54" count="4" type="stmt"/>
-        <line num="108" count="4" type="stmt"/>
-        <line num="109" count="4" type="stmt"/>
+        <line num="107" count="4" type="stmt"/>
+        <line num="133" count="4" type="stmt"/>
+        <line num="134" count="4" type="stmt"/>
       </file>
-      <file name="restaurant.ts" path="C:\Users\Mads\Documents\Github\ExamProjectSoft2ndSem\Project\client\src\mocks\restaurant.ts">
+      <file name="restaurant.ts" path="C:\Users\Merved\Documents\GitHub\ExamProjectSoft2ndSem\Project\client\src\mocks\restaurant.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="26" count="4" type="stmt"/>

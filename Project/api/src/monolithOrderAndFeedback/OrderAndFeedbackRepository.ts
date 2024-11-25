@@ -14,8 +14,6 @@ const addressRepository = AppDataSource.getMongoRepository(Address);
 const userRepository = AppDataSource.getMongoRepository(User);
 
 async function AddOrder(order: OrderData): Promise<Order | null> {
-    if (!order) return null;
-
     const orderPersist = orderRepository.create(order);
 
     return orderRepository.save(orderPersist);

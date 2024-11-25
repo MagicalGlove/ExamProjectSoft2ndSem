@@ -14,3 +14,11 @@ export interface Restaurant {
     menu: MenuItem[];
 }
 
+export interface Address {
+    _id: string;
+    street: string;
+    city: string;
+    postalCode: string;
+}
+
+

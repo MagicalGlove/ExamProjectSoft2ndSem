@@ -30,13 +30,6 @@ app.post('/login', async (req: Request, res: Response) => {
 
         const user = await loginServiceValidateCredentials(credentials);
 
-        if (!user) {
-            res.status(401).json({
-                error: 'Invalid username or password',
-            });
-            return;
-        }
-
         res.json(user);
     } catch (error: unknown) {
         if ((error as CustomError).response?.status === 401) {
@@ -57,7 +50,7 @@ app.get('/restaurants', async (req: Request, res: Response) => {
         const restaurants = await getAllRestaurants();
 
         res.json(restaurants);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error fetching restaurants:', error);
         res.status(500).json({
             error: 'An error occurred while fetching restaurants',
@@ -91,7 +84,7 @@ app.post('/createOrder', async (req: Request, res: Response) => {
         }
 
         res.json(order);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'Error creating order' });
     }
@@ -109,7 +102,7 @@ app.get('/orders', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -131,7 +124,7 @@ app.post('/ordersById', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -143,7 +136,8 @@ app.get('/acceptedOrders', async (req: Request, res: Response) => {
     try {
         const orders = await getAllAcceptedOrders();
 
-        if (!orders) {
+        //not tested
+        if (!orders) { 
             res.status(401).json({
                 error: 'No orders found',
             });
@@ -151,7 +145,7 @@ app.get('/acceptedOrders', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -164,6 +158,7 @@ app.post('/acceptRejectOrder', async (req: Request, res: Response) => {
         const { id, newStatus, rejectReason } = req.body;
         const order = await acceptRejectOrder(id, newStatus, rejectReason);
 
+        //not tested
         if (!order) {
             res.status(401).json({
                 error: 'No orders found',
@@ -172,7 +167,7 @@ app.post('/acceptRejectOrder', async (req: Request, res: Response) => {
         }
 
         res.json(order);
-    } catch (error) {
+    } catch (error) { //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'Error occured: ' + error,

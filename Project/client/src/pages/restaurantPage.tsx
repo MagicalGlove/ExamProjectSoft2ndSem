@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Order } from '../types/orders';
 import { GetOrdersAPIByRestaurantID } from '../api/orders';
@@ -13,7 +14,7 @@ import OrderCardDetailed from '../components/orders/orderCardDetailed.tsx';
 import { OrderStatusEnum } from '../utilities/orders.ts';
 import { Divider } from '@mui/material';
 
-function RestuarantPage() {
+function RestaurantPage() {
     const location = useLocation();
     const user: User = location.state?.user;
 
@@ -34,8 +35,8 @@ function RestuarantPage() {
                 setLabelType('Income');
                 setLabelType('Order count');
                 const series = orderCountToLineChartSeries(orders);
-                const y = [];
-                const labels = [];
+                const y:number[] = [];
+                const labels:string[] = [];
 
                 series.forEach((l) => {
                     y.push(l.y);
@@ -58,7 +59,6 @@ function RestuarantPage() {
     function filterOrders(orders: Order[], statuses: number[]): Order[] {
         return orders.filter((order) => statuses.includes(order.status));
     }
-
     return (
         <div>
             <div>
@@ -67,8 +67,8 @@ function RestuarantPage() {
                         if (labelType == 'Income') {
                             setLabelType('Order count');
                             const series = orderCountToLineChartSeries(orders);
-                            const y = [];
-                            const labels = [];
+                            const y:number[] = [];
+                            const labels:string[] = [];
 
                             series.forEach((l) => {
                                 y.push(l.y);
@@ -80,8 +80,8 @@ function RestuarantPage() {
                         } else if (labelType == 'Order count') {
                             setLabelType('Income');
                             const series = orderIncomeToLineChartSeries(orders);
-                            const y = [];
-                            const labels = [];
+                            const y:number[] = [];
+                            const labels:string[] = [];
 
                             series.forEach((l) => {
                                 y.push(l.y);
@@ -247,4 +247,4 @@ function RestuarantPage() {
     );
 }
 
-export default RestuarantPage;
+export default RestaurantPage;

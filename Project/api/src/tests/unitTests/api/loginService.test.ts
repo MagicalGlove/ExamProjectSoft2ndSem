@@ -3,7 +3,7 @@ import express from 'express';
 import { loginRouter } from '../../../loginService/loginRoutes.ts';
 import * as userRepository from '../../../loginService/userRepository.ts';
 
-jest.mock('../../../loginService/userRepository.ts');
+jest.mock('../../../loginService/userRepository');
 
 const app = express();
 app.use(express.json());
@@ -17,7 +17,9 @@ describe('POST /loginService/validateCredentials', () => {
     });
 
     it('should return user object if credentials are valid', async () => {
-        (userRepository.validateCredentials as jest.Mock).mockResolvedValue(mockUser);
+        (userRepository.validateCredentials as jest.Mock).mockResolvedValue(
+            mockUser
+        );
 
         const response = await request(app)
             .post('/loginService/validateCredentials')
@@ -28,7 +30,9 @@ describe('POST /loginService/validateCredentials', () => {
     });
 
     it('should return 401 error for invalid credentials', async () => {
-        (userRepository.validateCredentials as jest.Mock).mockResolvedValue(null);
+        (userRepository.validateCredentials as jest.Mock).mockResolvedValue(
+            null
+        );
 
         const response = await request(app)
             .post('/loginService/validateCredentials')
@@ -39,13 +43,17 @@ describe('POST /loginService/validateCredentials', () => {
     });
 
     it('should return 500 error if there is an internal server error', async () => {
-        (userRepository.validateCredentials as jest.Mock).mockRejectedValue(new Error('Database error'));
+        (userRepository.validateCredentials as jest.Mock).mockRejectedValue(
+            new Error('Database error')
+        );
 
         const response = await request(app)
             .post('/loginService/validateCredentials')
             .send({ username: 'testUser', password: 'validPassword' });
 
         expect(response.status).toBe(500);
-        expect(response.body).toEqual({ error: 'Error validating credentials' });
+        expect(response.body).toEqual({
+            error: 'Error validating credentials',
+        });
     });
 });
