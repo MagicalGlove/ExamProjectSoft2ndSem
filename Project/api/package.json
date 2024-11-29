@@ -9,7 +9,7 @@
     "build": "node esbuild.config.js",
     "dev": "nodemon src/server.ts",
     "test": "jest --runInBand",
-    "testCoverage": "jest --coverage",
+    "testCoverage": "jest --runInBand --coverage",
     "lint": "eslint ."
   },
   "keywords": [],
