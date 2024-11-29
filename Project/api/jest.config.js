@@ -6,4 +6,5 @@ export default {
   },
   extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
+  globalTeardown: '<rootDir>/src/utilities/jestGlobalTeardown.ts'
 };

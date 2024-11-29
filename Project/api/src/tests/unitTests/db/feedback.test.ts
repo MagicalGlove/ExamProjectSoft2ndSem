@@ -4,7 +4,7 @@ import {
     createFeedbackAndLinkOrder,
     orderRepository,
 } from '../../../monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
-import { mockOrderDB, mockUpdateResultDB } from '../../mocks/feedbackMocksDB.ts';
+import { mockOrderDB } from '../../mocks/feedbackMocksDB.ts';
 import { Order } from '../../../monolithOrderAndFeedback/Order.ts';
 import { ObjectId } from 'mongodb';
 
@@ -16,18 +16,27 @@ describe('Database Functionality for createFeedbackAndLinkOrder', () => {
     });
 
     beforeEach(async () => {
-        // Create a fresh order before each test if needed
-        const { customerID, restaurantID, address, totalPrice, menuItems, timestamp } = mockOrderDB;
+        // Create a fresh order before each test
+        const {
+            customerID,
+            restaurantID,
+            menuItems,
+            address,
+            totalPrice,
+            timestamp,
+        } = mockOrderDB;
         order = await orderAndFeedbackService.createOrder(
             customerID,
             restaurantID,
+            menuItems,
             address,
             totalPrice,
-            menuItems,
             timestamp
         );
         if (!order) {
-            throw new Error('Order creation failed, cannot proceed with feedback creation');
+            throw new Error(
+                'Order creation failed, cannot proceed with feedback creation'
+            );
         }
     });
 
@@ -37,7 +46,9 @@ describe('Database Functionality for createFeedbackAndLinkOrder', () => {
 
     it('should create feedback and link it to the correct order', async () => {
         if (!order) {
-            throw new Error('Order creation failed, cannot proceed with feedback creation');
+            throw new Error(
+                'Order creation failed, cannot proceed with feedback creation'
+            );
         }
         const feedbackData = {
             foodRating: 5,
@@ -61,7 +72,9 @@ describe('Database Functionality for createFeedbackAndLinkOrder', () => {
 
     it('should throw an error if the order is not found', async () => {
         if (!order) {
-            throw new Error('Order creation failed, cannot proceed with feedback creation');
+            throw new Error(
+                'Order creation failed, cannot proceed with feedback creation'
+            );
         }
         const feedbackData = {
             foodRating: 5,

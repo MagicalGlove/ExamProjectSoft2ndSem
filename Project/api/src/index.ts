@@ -1,15 +1,15 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { getAllRestaurants } from './RestaurantService/dbFunctions.ts';
+import { createOrder, getAllAcceptedOrders, getAllOrders } from './monolithOrderAndFeedback/OrderAndFeedbackService.ts';
 import {
-    createOrder,
-    getAllAcceptedOrders,
-    getAllOrders,
-} from './monolithOrderAndFeedback/OrderAndFeedbackService.ts';
-import {
+    acceptOrderAsDelivery,
     acceptRejectOrder,
+    calculateAndUpdateOrderPay,
+    completeOrderAsDelivery,
     createFeedbackAndLinkOrder,
     GetAllOrdersById,
+    GetOwnOrders,
 } from './monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
 import { messagingRoutes } from './messagingService/messaging.ts';
 import { loginRouter } from './loginService/loginRoutes.ts';
@@ -50,7 +50,8 @@ app.get('/restaurants', async (req: Request, res: Response) => {
         const restaurants = await getAllRestaurants();
 
         res.json(restaurants);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error fetching restaurants:', error);
         res.status(500).json({
             error: 'An error occurred while fetching restaurants',
@@ -60,23 +61,9 @@ app.get('/restaurants', async (req: Request, res: Response) => {
 
 app.post('/createOrder', async (req: Request, res: Response) => {
     try {
-        const {
-            userID,
-            restaurantID,
-            menuItems,
-            address,
-            totalPrice,
-            timestamp,
-        } = req.body;
+        const { userID, restaurantID, menuItems, address, totalPrice, timestamp } = req.body;
 
-        const order = await createOrder(
-            userID,
-            restaurantID,
-            menuItems,
-            address,
-            totalPrice,
-            timestamp
-        );
+        const order = await createOrder(userID, restaurantID, menuItems, address, totalPrice, timestamp);
 
         if (!order) {
             res.status(401).json({ error: 'Invalid order data' });
@@ -84,7 +71,8 @@ app.post('/createOrder', async (req: Request, res: Response) => {
         }
 
         res.json(order);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'Error creating order' });
     }
@@ -102,7 +90,8 @@ app.get('/orders', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -124,7 +113,8 @@ app.post('/ordersById', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -137,7 +127,7 @@ app.get('/acceptedOrders', async (req: Request, res: Response) => {
         const orders = await getAllAcceptedOrders();
 
         //not tested
-        if (!orders) { 
+        if (!orders) {
             res.status(401).json({
                 error: 'No orders found',
             });
@@ -145,7 +135,8 @@ app.get('/acceptedOrders', async (req: Request, res: Response) => {
         }
 
         res.json(orders);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'An error occurred while fetching orders',
@@ -167,7 +158,8 @@ app.post('/acceptRejectOrder', async (req: Request, res: Response) => {
         }
 
         res.json(order);
-    } catch (error) { //not tested
+    } catch (error) {
+        //not tested
         console.error('Error creating order:', error);
         res.status(500).json({
             error: 'Error occured: ' + error,
@@ -195,6 +187,80 @@ app.post('/createFeedback', async (req: Request, res: Response) => {
     } catch (error) {
         console.error('Error creating feedback:', error);
         res.status(500).json({ error: 'Error creating feedback' });
+    }
+});
+
+app.post('/acceptOrderAsDelivery', async (req: Request, res: Response) => {
+    try {
+        const { orderID, employeeID } = req.body;
+
+        const order = await acceptOrderAsDelivery(orderID, employeeID);
+
+        if (!order) {
+            res.status(401).json({ error: 'Invalid order data' });
+            return;
+        }
+
+        res.json(order);
+    } catch (error) {
+        console.error('Error accepting order: ', error);
+        res.status(500).json({ error: 'Error accepting order' + error });
+    }
+});
+
+app.post('/completeOrderAsDelivery', async (req: Request, res: Response) => {
+    try {
+        const { orderID } = req.body;
+
+        const order1 = await completeOrderAsDelivery(orderID);
+
+        await calculateAndUpdateOrderPay(orderID);
+
+        if (!order1) {
+            res.status(401).json({ error: 'Invalid order data' });
+            return;
+        }
+
+        res.json(order1);
+    } catch (error) {
+        console.error('Error accepting order: ', error);
+        res.status(500).json({ error: 'Error accepting order' + error });
+    }
+});
+
+app.post('/calcAndUpdatePay', async (req: Request, res: Response) => {
+    try {
+        const { orderID } = req.body;
+
+        const order = await calculateAndUpdateOrderPay(orderID);
+
+        if (!order) {
+            res.status(401).json({ error: 'Invalid order data' });
+            return;
+        }
+
+        res.json(order);
+    } catch (error) {
+        console.error('Error accepting order: ', error);
+        res.status(500).json({ error: 'Error accepting order' + error });
+    }
+});
+
+app.post('/getOwnOrders', async (req: Request, res: Response) => {
+    try {
+        const { employeeID, status } = req.body;
+
+        const orders = await GetOwnOrders(employeeID, status);
+
+        if (!orders) {
+            res.status(401).json({ error: 'Invalid orders data' });
+            return;
+        }
+
+        res.json(orders);
+    } catch (error) {
+        console.error('Error accepting orders: ', error);
+        res.status(500).json({ error: 'Error accepting orders' + error });
     }
 });
 

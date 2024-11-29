@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "buildProd": "tsc && vite build --mode production",
     "test": "jest",
+    "testCoverage": "jest --coverage",
     "lint": "eslint .",
     "preview": "vite preview"
   },

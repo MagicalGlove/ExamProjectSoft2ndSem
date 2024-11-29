@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import dotenv from 'dotenv';
-import { User } from './loginService/User.ts';
+import { User, Address as loginAddress } from './loginService/User.ts';
 import {
     MenuItem,
     Restaurant,
@@ -22,5 +22,13 @@ export const AppDataSource = new DataSource({
     useUnifiedTopology: true,
     synchronize: true,
     logging: true,
-    entities: [User, Restaurant, MenuItem, Order, Feedback, Address],
+    entities: [
+        User,
+        Restaurant,
+        MenuItem,
+        Order,
+        Feedback,
+        Address,
+        loginAddress,
+    ],
 });

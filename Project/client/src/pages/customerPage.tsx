@@ -4,9 +4,14 @@ import { Restaurant } from '../types/restaurants';
 import FeedbackForm from '../components/Feedback/feedbackForm';
 import { Order } from '../types/orders';
 import RestaurantComponent from "./components/restaurantComponent"
+import {useLocation} from "react-router-dom";
+import {User} from "../types/users";
+
 
 
 function CustomerPage() {
+    const location = useLocation();
+    const user: User = location.state?.user;
     const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
@@ -102,9 +107,11 @@ function CustomerPage() {
 
 
             {restaurant && (
-                <RestaurantComponent restaurant={restaurant} />)
+                <RestaurantComponent restaurant={restaurant} user = {user} />)
             }
             <FeedbackForm order={order}></FeedbackForm>
+
+
         </div>
     );
 }

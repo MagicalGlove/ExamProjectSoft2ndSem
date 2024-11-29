@@ -1,64 +1,87 @@
-import { Kafka } from 'kafkajs';
+import { Kafka, Producer, Consumer } from 'kafkajs';
+import MessageBroker from './types/types.ts';
 
+export class KafkaAdapter implements MessageBroker {
+    private kafka: Kafka;
+    private producer: Producer;
+    private consumer: Consumer;
+    private readonly topic: string;
 
-const kafka = new Kafka({
-    clientId: 'mtogo',  // unique client identifier for our app
-    brokers: process.env.KAFKA_BROKERS?.split(',') || [],     // replace with the ipaddress and port of our Kafka brokers
-});
+    constructor(
+        brokers: string[],
+        clientId: string,
+        groupId: string,
+        topic: string
+    ) {
+        this.kafka = new Kafka({
+            clientId,
+            brokers,
+        });
 
-const producer = kafka.producer();
-const consumer = kafka.consumer({ groupId: 'mtogo' });
+        this.producer = this.kafka.producer();
+        this.consumer = this.kafka.consumer({ groupId });
+        this.topic = topic;
+    }
 
-// Function to send an event (message)
-async function sendEvent(eventType: string, payload: any) {
-    await producer.connect();
+    // Adapter method for sending events
+    async sendEvent(eventType: string, payload: any): Promise<void> {
+        await this.producer.connect();
 
-    await producer.send({
-        topic: 'test-topic',  // specify the topic to which you want to send events
-        messages: [
-            {
-                value: JSON.stringify({ eventType, payload, timestamp: Date.now() }), // payload is your event data
+        try {
+            await this.producer.send({
+                topic: this.topic,
+                messages: [
+                    {
+                        value: JSON.stringify({
+                            eventType,
+                            payload,
+                            timestamp: Date.now(),
+                        }),
+                    },
+                ],
+            });
+        } finally {
+            await this.producer.disconnect();
+        }
+    }
+
+    // Adapter method for consuming events
+    async consumeEvents(
+        handler: (eventType: string, payload: any) => void
+    ): Promise<void> {
+        await this.consumer.connect();
+        await this.consumer.subscribe({
+            topic: this.topic,
+            fromBeginning: false,
+        });
+
+        await this.consumer.run({
+            eachMessage: async ({ topic, partition, message }) => {
+                if (!message.value) {
+                    console.warn('Message value is null');
+                    return;
+                }
+
+                const event = JSON.parse(message.value.toString());
+                const { eventType, payload } = event;
+
+                try {
+                    handler(eventType, payload);
+                } catch (error) {
+                    console.error(
+                        `Error handling event type: ${eventType}`,
+                        error
+                    );
+                }
+
+                await this.consumer.commitOffsets([
+                    {
+                        topic,
+                        partition,
+                        offset: (Number(message.offset) + 1).toString(),
+                    },
+                ]);
             },
-        ],
-    });
-
-    await producer.disconnect();
+        });
+    }
 }
-
-// Function to consume events from a topic
-async function runConsumer() {
-    await consumer.connect();
-    await consumer.subscribe({ topic: 'test-topic', fromBeginning: false }); // Start from the latest offset
-
-    await consumer.run({
-        eachMessage: async ({ topic, partition, message }) => {
-
-            // Parse the message value as JSON
-            if (!message.value) {
-                console.warn('Message value is null');
-                return;
-            }
-            const event = JSON.parse(message.value.toString());
-            const { eventType, payload } = event;
-
-            switch (eventType) {
-                case 'OrderPlaced':
-                    console.log('Order Placed:', payload);
-                    break;
-                case 'OrderCancelled':
-                    console.log('Order Cancelled:', payload);
-                    break;
-
-                case 'OrderDelivered':
-                    console.log('Order Delivered:', payload);
-                    break;
-                default:
-                    console.warn(`Unhandled event type: ${eventType}`);
-            }
-            // Processes the message so it doesn't get consumed again
-            await consumer.commitOffsets([{ topic, partition, offset: (Number(message.offset) + 1).toString() }]);
-        },
-    });
-}
-
-export { sendEvent,runConsumer };

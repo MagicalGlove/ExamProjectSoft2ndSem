@@ -1,3 +1,5 @@
+import { Address} from "./address";
+
 export enum USER_ROLES {
     ADMIN = 'admin',
     CUSTOMER = 'customer',
@@ -6,11 +8,11 @@ export enum USER_ROLES {
 }
 
 export interface User {
-    id: string;
+    _id: string;
     username: string;
     password: string;
     role: USER_ROLES;
-    address?: string;
+    address: string | Address;
     restaurant?: string;
     phoneNumber?: number;
 }

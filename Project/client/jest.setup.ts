@@ -3,7 +3,7 @@ import { handlers } from './src/mocks/handlers';
 
 jest.mock('./src/constants', () => ({
     VITE_BASE_URL: 'http://localhost:3001',
-  }));
+}));
 
 const server = setupServer(...handlers);
 

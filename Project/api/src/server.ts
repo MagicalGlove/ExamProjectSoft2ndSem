@@ -2,7 +2,6 @@ import app from './index.ts';
 import dotenv from 'dotenv'
 import 'reflect-metadata';
 import { AppDataSource } from './ormconfig.ts';
-import { runConsumer } from './messagingService/kafkaAdapter.ts';
 
 dotenv.config();
 
@@ -16,7 +15,7 @@ AppDataSource.initialize()
         });
 
         //Kafka listener for events
-        runConsumer().catch(console.error);
+        //runConsumer().catch(console.error);
     })
     .catch((err) => {
         console.error('Error during Data Source initialization:', err);

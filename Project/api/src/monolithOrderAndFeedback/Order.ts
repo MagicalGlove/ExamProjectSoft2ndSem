@@ -1,7 +1,7 @@
 import { OrderStatusEnum } from './types/orderStatusEnum.ts';
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { ObjectId } from 'mongodb';
-import { OrderItem } from './types/order.ts';
+import { DelivereePayment, OrderItem } from './types/order.ts';
 import { Address } from '../RestaurantService/Restaurant.ts';
 import { User } from '../loginService/User.ts';
 
@@ -40,6 +40,15 @@ export class Order {
 
     @Column()
     timestamp!: Date;
+
+    @Column()
+    pickUpDate?: Date;
+
+    @Column()
+    completionDate?: Date;
+
+    @Column()
+    pay?: DelivereePayment;
 
     @Column()
     rejectReason?: string | null;

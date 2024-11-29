@@ -2,21 +2,22 @@ import React from 'react';
 import { Order } from '../../types/orders';
 import { OrderStatusTextEnum } from '../../utilities/orders';
 import { getColorFromStatus } from '../../utilities/utilities';
+import PaymentInfo from './paymentInfo';
 
 interface Props {
     order: Order;
-    setSelectedOrder: (order: Order | null) => void;
+    setSelectedOrder?: (order: Order | null) => void;
+    children?: React.ReactNode;
 }
-const OrderCard: React.FC<Props> = ({ order, setSelectedOrder }) => {
+const OrderCard: React.FC<Props> = ({ order, setSelectedOrder, children }) => {
     async function handleOrderClick(order: Order) {
+        if (!setSelectedOrder) return;
         try {
             setSelectedOrder(order);
         } catch (error) {
             console.error('Failed to fetch menu items:', error);
         }
     }
-
-    console.log(order.status);
 
     return (
         <div
@@ -88,9 +89,24 @@ const OrderCard: React.FC<Props> = ({ order, setSelectedOrder }) => {
                     marginBottom: '10px',
                 }}
             >
-                <strong>Total Price:</strong>
+                <strong>Order Price:</strong>
                 <span>${order.totalPrice.toFixed(2)}</span>
             </div>
+
+            <PaymentInfo pay={order.pay} />
+
+            {order.pay && (
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '10px',
+                    }}
+                >
+                    <strong>Payout:</strong>
+                    <span>${order.pay.totalPay}</span>
+                </div>
+            )}
 
             <div
                 style={{
@@ -102,6 +118,7 @@ const OrderCard: React.FC<Props> = ({ order, setSelectedOrder }) => {
                 <strong>Created:</strong>
                 <span>{new Date(order.timestamp).toLocaleString()}</span>
             </div>
+            {children && <div style={{ textAlign: 'right' }}>{children}</div>}
         </div>
     );
 };

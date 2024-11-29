@@ -108,7 +108,7 @@ export const acceptRejectOrderMock = {
     _id: '673de997fa60e0a917658804',
     customerID: '672df427f54107237ff75565',
     restaurantID: '672de88ff54107237ff75565',
-    status: 0,
+    status: 1,
     address: {
         _id: '672df723f54107237ff75573',
         street: 'Maple Street 12',

@@ -17,11 +17,26 @@ export class User {
     role!: USER_ROLES;
 
     @Column()
-    address?: MongoObjectId;
+    address?: MongoObjectId | Address;
 
     @Column()
     restaurant?: MongoObjectId;
 
     @Column()
     phoneNumber?: number;
+}
+
+@Entity('addresses')
+export class Address {
+    @ObjectIdColumn()
+    _id!: ObjectId;
+
+    @Column()
+    street!: string;
+
+    @Column()
+    city!: string;
+
+    @Column()
+    postalCode!: string;
 }

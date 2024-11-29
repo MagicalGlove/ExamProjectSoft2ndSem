@@ -12,6 +12,7 @@ function LoginPage() {
     event.preventDefault();
     try {
       const user = await Login(username, password);
+      console.log('User logged in:', user);
       if (user.role) {
         navigate(`/${user.role.toLowerCase()}`, { state: { user: user } });
       }

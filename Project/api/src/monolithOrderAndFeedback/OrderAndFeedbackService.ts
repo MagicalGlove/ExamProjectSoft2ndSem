@@ -10,9 +10,9 @@ import { OrderItem } from './types/order.ts';
 async function createOrder(
     customerID: ObjectId,
     restaurantID: ObjectId,
+    orderItemList: OrderItem[],
     address: ObjectId,
     totalPrice: number,
-    orderItemList: OrderItem[],
     timestamp: Date
 ): Promise<Order | null> {
     const orderFactory: OrderFactory = new OrderFactory();

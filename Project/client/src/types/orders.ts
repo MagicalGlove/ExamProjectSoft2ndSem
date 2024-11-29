@@ -1,3 +1,4 @@
+import { Address } from './address';
 export interface Order {
     _id: string;
     customerID: Customer;
@@ -8,15 +9,12 @@ export interface Order {
     feedbackID: string;
     timestamp: string;
     orderItemList: OrderItem[];
+    pickUpDate?: string;
+    completionDate?: string;
     rejectReason?: string;
+    pay?: DelivereePayment;
 }
 
-export interface Address {
-    _id: string;
-    street: string;
-    city: string;
-    postalCode: number;
-}
 
 export interface Customer {
     _id: string;
@@ -43,4 +41,15 @@ export interface FeedbackCollection {
     foodRating: number | null;
     overallRating: number | null;
     deliveryRating: number | null;
+}
+
+export interface DelivereePayment {
+    // Multipliers shall ALWAYS be above 1. The mutiplied  is supposed to be multiplied with the amount, not added to. So 100 (price) * 1.2 (multiplier) = 120 (total)
+    baseAmount: number;
+    totalOrderQuantityMultiplier: number | null;
+    deliverySpeedMultiplier: number | null;
+    feedbackRatingMultiplier: number | null;
+    orderPriceBonus: number;
+    nightTimeBonus: number;
+    totalPay: number;
 }

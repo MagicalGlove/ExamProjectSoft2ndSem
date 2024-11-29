@@ -1,18 +1,33 @@
 import { Restaurant } from '../../types/restaurants';
 import { MenuItem } from '../../types/restaurants';
+import { User } from '../../types/users';
 import { useState } from 'react';
+import ShoppingCart from "./ShoppingCart";
+import {createOrder} from "../../api/orders";
 
 interface RestaurantPageProps {
     restaurant: Restaurant;
+    user: User;
 }
-function RestaurantComponent({ restaurant }: RestaurantPageProps) {
 
-    interface menuItemLine{
-        menuItem: MenuItem;
-        quantity: number;
-    }
+interface menuItemLine{
+    menuItem: MenuItem;
+    quantity: number;
+}
+
+function RestaurantComponent({ restaurant , user}: RestaurantPageProps) {
 
 
+    const handleProceedToPayment = async () => {
+        try {
+
+            const totalPrice = menuItems.reduce((total, item) => total + item.menuItem.price * item.quantity, 0);
+            const order = await createOrder(user._id, restaurant._id, menuItems, user.address, totalPrice);
+            console.log('Order created:', order);
+        } catch (error) {
+            console.error('Error creating order:', error);
+        }
+    };
     const [menuItems, setMenuItems] = useState<menuItemLine[]>([]);
 
 
@@ -58,10 +73,9 @@ function RestaurantComponent({ restaurant }: RestaurantPageProps) {
                     </tr>
                 ))}
             </table>
-
-            <a>
+            <ShoppingCart orderItemList={menuItems} />
+            <a onClick={handleProceedToPayment} style={{ cursor: 'pointer' }}>
                 Proceed to payment
-
             </a>
         </div>
 
