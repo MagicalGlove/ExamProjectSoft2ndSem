@@ -58,7 +58,7 @@ describe('Database Functionality for createFeedbackAndLinkOrder', () => {
         };
 
         const feedback = await createFeedbackAndLinkOrder(feedbackData);
-
+        console.log(feedback);
         expect(feedback).not.toBeNull();
         expect(feedback.foodRating).toBe(feedbackData.foodRating);
         expect(feedback.overallRating).toBe(feedbackData.overallRating);
