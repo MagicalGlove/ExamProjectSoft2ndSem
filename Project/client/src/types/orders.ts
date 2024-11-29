@@ -3,6 +3,7 @@ export interface Order {
     _id: string;
     customerID: Customer;
     restaurantID: string;
+    employeeID: string;
     status: number;
     address: Address;
     totalPrice: number;
@@ -38,6 +39,7 @@ export interface MenuItem {
 }
 
 export interface FeedbackCollection {
+    orderId: string;
     foodRating: number | null;
     overallRating: number | null;
     deliveryRating: number | null;

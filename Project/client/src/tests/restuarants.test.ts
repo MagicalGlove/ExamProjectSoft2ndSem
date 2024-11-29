@@ -7,7 +7,7 @@ describe('GetRestaurants function', () => {
         expect(restaurants).toEqual(
             expect.arrayContaining([
                 expect.objectContaining(restaurantMockObject),
-            ])
+            ]),
         );
     });
 });

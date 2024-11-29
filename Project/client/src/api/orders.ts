@@ -49,8 +49,9 @@ export const GetOwnOrdersStatus = async (employeeID: string, status: number): Pr
             status,
         }),
     });
+
     if (!response.ok) {
-        throw new Error('Failed to login');
+        throw new Error('Failed to find orders by delivery employee ID');
     }
     return response.json();
 };
@@ -115,6 +116,7 @@ export const submitFeedback = async (
             deliveryRating,
         }),
     });
+
     if (!response.ok) {
         throw new Error('failed to change order' + response.body);
     }
