@@ -35,7 +35,7 @@ describe('Total orders per restaurant to data series', () => {
     ];
     const orders: Order[] = [
         {
-            _id: '1',
+            userID: '1',
             customerID: {
                 _id: '',
                 username: '',
@@ -59,7 +59,7 @@ describe('Total orders per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '2',
+            userID: '2',
             customerID: {
                 _id: '',
                 username: '',
@@ -83,7 +83,7 @@ describe('Total orders per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '3',
+            userID: '3',
             customerID: {
                 _id: '',
                 username: '',
@@ -109,7 +109,7 @@ describe('Total orders per restaurant to data series', () => {
     ];
     const ordersSingleRestaurant: Order[] = [
         {
-            _id: '1',
+            userID: '1',
             customerID: {
                 _id: '',
                 username: '',
@@ -133,7 +133,7 @@ describe('Total orders per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '2',
+            userID: '2',
             customerID: {
                 _id: '',
                 username: '',
@@ -214,7 +214,7 @@ describe('Total orders income per restaurant to data series', () => {
     ];
     const orders: Order[] = [
         {
-            _id: '1',
+            userID: '1',
             customerID: {
                 _id: '',
                 username: '',
@@ -238,7 +238,7 @@ describe('Total orders income per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '2',
+            userID: '2',
             customerID: {
                 _id: '',
                 username: '',
@@ -262,7 +262,7 @@ describe('Total orders income per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '3',
+            userID: '3',
             customerID: {
                 _id: '',
                 username: '',
@@ -288,7 +288,7 @@ describe('Total orders income per restaurant to data series', () => {
     ];
     const ordersSingleRestaurant: Order[] = [
         {
-            _id: '1',
+            userID: '1',
             customerID: {
                 _id: '',
                 username: '',
@@ -312,7 +312,7 @@ describe('Total orders income per restaurant to data series', () => {
             orderItemList: [],
         },
         {
-            _id: '2',
+            userID: '2',
             customerID: {
                 _id: '',
                 username: '',
@@ -399,7 +399,7 @@ describe('PieChart series to LineChart series', () => {
     ];
     const orders: Order[] = [
         {
-            _id: '1',
+            userID: '1',
             customerID: {
                 _id: '',
                 username: '',
@@ -423,7 +423,7 @@ describe('PieChart series to LineChart series', () => {
             orderItemList: [],
         },
         {
-            _id: '2',
+            userID: '2',
             customerID: {
                 _id: '',
                 username: '',
@@ -447,7 +447,7 @@ describe('PieChart series to LineChart series', () => {
             orderItemList: [],
         },
         {
-            _id: '3',
+            userID: '3',
             customerID: {
                 _id: '',
                 username: '',

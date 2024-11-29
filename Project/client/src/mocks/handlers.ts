@@ -4,8 +4,14 @@ import { VITE_BASE_URL } from '../constants';
 import { Restaurant } from '../types/restaurants';
 import { restaurantsMockList } from './restaurant';
 import {
+    acceptedOrderAsDeliveryMock,
     acceptedOrdersMockList,
-    acceptRejectOrderMock, allOrdersMock, deliveryOrdersMock, feedbackOrderMock,
+    acceptRejectOrderMock,
+    allOrdersMock,
+    completeOrderAsDeliveryMock,
+    createdOrder,
+    deliveryOrdersMock,
+    feedbackOrderMock,
     ordersMockDataList,
 } from './orders';
 import { FeedbackCollection, Order } from '../types/orders';
@@ -43,8 +49,30 @@ export const handlers = [
             },
         });
     }),
+
     http.get<never, Order[]>(`${VITE_BASE_URL}/orders`, async () => {
         return new Response(JSON.stringify(allOrdersMock), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }),
+
+    http.post<never, Order>(`${VITE_BASE_URL}/createOrder`, async ({ request }) => {
+        const credentials = await request.json();
+        const { userID } = credentials;
+
+        if (userID !== 'id') {
+            return new Response('', {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
+        return new Response(JSON.stringify(createdOrder), {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
@@ -70,25 +98,22 @@ export const handlers = [
         });
     }),
 
-    http.post<never, Order>(
-        `${VITE_BASE_URL}/getOwnOrders`,
-        async ({ request }) => {
-            const credentials = await request.json();
-            const { employeeID, status } = credentials;
+    http.post<never, Order>(`${VITE_BASE_URL}/getOwnOrders`, async ({ request }) => {
+        const credentials = await request.json();
+        const { employeeID, status } = credentials;
 
-            if (employeeID === '111') {
-                return new Response(
-                    JSON.stringify(deliveryOrdersMock),
-                    { status: 200 },
-                );
-            }
-
+        if (employeeID === '111') {
             return new Response(
-                JSON.stringify({ message: 'Invalid employee ID' }),
-                { status: 401 },
+                JSON.stringify(deliveryOrdersMock),
+                { status: 200 },
             );
-        },
-    ),
+        }
+
+        return new Response(
+            JSON.stringify({ message: 'Invalid employee ID' }),
+            { status: 401 },
+        );
+    }),
 
     http.post<never, Order>(`${VITE_BASE_URL}/acceptRejectOrder`, async () => {
         return new Response(JSON.stringify(acceptRejectOrderMock), {
@@ -111,6 +136,54 @@ export const handlers = [
         }
 
         return new Response(JSON.stringify(feedbackOrderMock), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }),
+
+    http.post<never, { orderID, employeeID }>(`${VITE_BASE_URL}/acceptOrderAsDelivery`, async ({ request }) => {
+        const credentials = await request.json();
+        const {
+            orderID,
+            employeeID,
+        } = credentials;
+
+
+        if (orderID !== 'orderid') {
+            return new Response('', {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
+        return new Response(JSON.stringify(acceptedOrderAsDeliveryMock), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }),
+
+    http.post<never, { orderID }>(`${VITE_BASE_URL}/completeOrderAsDelivery`, async ({ request }) => {
+        const credentials = await request.json();
+        const {
+            orderID,
+        } = credentials;
+
+        if (orderID !== 'orderid') {
+            return new Response('', {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
+        return new Response(JSON.stringify(completeOrderAsDeliveryMock), {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ jest.mock('./src/constants', () => ({
 
 const server = setupServer(...handlers);
 
+beforeEach(() => jest.restoreAllMocks());
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => {

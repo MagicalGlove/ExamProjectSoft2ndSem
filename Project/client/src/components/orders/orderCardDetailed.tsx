@@ -19,8 +19,8 @@ const OrderCardDetailed: React.FC<Props> = ({ selectedOrder, fetchOrders }) => {
     ) {
         try {
             if (accept) {
-                await acceptRejectOrder(selectedOrder._id, 2);
-            } else await acceptRejectOrder(selectedOrder._id, 1, rejectReason);
+                await acceptRejectOrder(selectedOrder.userID, 2);
+            } else await acceptRejectOrder(selectedOrder.userID, 1, rejectReason);
 
             fetchOrders();
         } catch (error) {

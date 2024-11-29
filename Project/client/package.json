@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "buildProd": "tsc && vite build --mode production",
-    "test": "jest",
+    "test": "jest --runInBand",
     "testCoverage": "jest --coverage",
     "lint": "eslint .",
     "preview": "vite preview"

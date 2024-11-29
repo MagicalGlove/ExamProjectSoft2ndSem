@@ -53,9 +53,9 @@ function DeliveryPage() {
                         <div>
                             {orders.map((order) => (
                                 <OrderCardDelivery
-                                    key={order._id}
+                                    key={order.userID}
                                     order={order}
-                                    selectedOrderID={selectedOrder?._id}
+                                    selectedOrderID={selectedOrder?.userID}
                                     setSelectedOrder={setSelectedOrder}
                                 />
                             ))}
@@ -99,15 +99,15 @@ function DeliveryPage() {
                 <div style={{ padding: '10px' }}>
                     <h1 style={{ textAlign: 'center' }}>Your current orders:</h1>
                     {ownOrdersPickedUp.map((ownOrder) => (
-                        <OrderCard key={ownOrder._id} order={ownOrder}>
-                            <button onClick={() => handleCompleteOrder(ownOrder._id)}>Complete</button>
+                        <OrderCard key={ownOrder.userID} order={ownOrder}>
+                            <button onClick={() => handleCompleteOrder(ownOrder.userID)}>Complete</button>
                         </OrderCard>
                     ))}
                 </div>
                 <div style={{ padding: '10px' }}>
                     <h1 style={{ textAlign: 'center' }}>Your completed orders:</h1>
                     {ownOrdersComplete.map((ownOrder) => (
-                        <OrderCard key={ownOrder._id} order={ownOrder} setSelectedOrder={setSelectedOrder}></OrderCard>
+                        <OrderCard key={ownOrder.userID} order={ownOrder} setSelectedOrder={setSelectedOrder}></OrderCard>
                     ))}
                 </div>
             </div>

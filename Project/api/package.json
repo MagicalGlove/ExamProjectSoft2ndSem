@@ -8,7 +8,7 @@
     "start": "ts-node src/server.ts",
     "build": "node esbuild.config.js",
     "dev": "nodemon src/server.ts",
-    "test": "jest",
+    "test": "jest --runInBand",
     "testCoverage": "jest --coverage",
     "lint": "eslint ."
   },

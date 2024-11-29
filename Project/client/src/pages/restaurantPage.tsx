@@ -144,7 +144,7 @@ function RestaurantPage() {
                                     OrderStatusEnum.Created,
                                 ]).map((order) => (
                                     <OrderCard
-                                        key={order._id}
+                                        key={order.userID}
                                         order={order}
                                         setSelectedOrder={setSelectedOrder}
                                     />
@@ -176,7 +176,7 @@ function RestaurantPage() {
                                     OrderStatusEnum.OnItsWay,
                                 ]).map((order) => (
                                     <OrderCard
-                                        key={order._id}
+                                        key={order.userID}
                                         order={order}
                                         setSelectedOrder={setSelectedOrder}
                                     />
@@ -209,7 +209,7 @@ function RestaurantPage() {
                                     OrderStatusEnum.Rejected,
                                 ]).map((order) => (
                                     <OrderCard
-                                        key={order._id}
+                                        key={order.userID}
                                         order={order}
                                         setSelectedOrder={setSelectedOrder}
                                     />

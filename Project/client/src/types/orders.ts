@@ -1,6 +1,6 @@
 import { Address } from './address';
 export interface Order {
-    _id: string;
+    userID: string;
     customerID: Customer;
     restaurantID: string;
     employeeID: string;
