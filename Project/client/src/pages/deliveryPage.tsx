@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import OrderCard from '../components/orders/orderCard';
 import OrderCardDelivery from '../components/orders/orderCardDelivery';
 import SelectedOrder from '../components/orders/selectedOrder';
+import NoUser from './components/noUser';
 
 function DeliveryPage() {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -43,6 +44,8 @@ function DeliveryPage() {
         fetchOrders();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
+
+    if (!user) return <NoUser />;
 
     return (
         <div>
@@ -107,7 +110,11 @@ function DeliveryPage() {
                 <div style={{ padding: '10px' }}>
                     <h1 style={{ textAlign: 'center' }}>Your completed orders:</h1>
                     {ownOrdersComplete.map((ownOrder) => (
-                        <OrderCard key={ownOrder.userID} order={ownOrder} setSelectedOrder={setSelectedOrder}></OrderCard>
+                        <OrderCard
+                            key={ownOrder.userID}
+                            order={ownOrder}
+                            setSelectedOrder={setSelectedOrder}
+                        ></OrderCard>
                     ))}
                 </div>
             </div>

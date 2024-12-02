@@ -3,18 +3,16 @@ import { GetRestaurantsAPI } from '../api/restaurants';
 import { Restaurant } from '../types/restaurants';
 import FeedbackForm from '../components/Feedback/feedbackForm';
 import { Order } from '../types/orders';
-import RestaurantComponent from "./components/restaurantComponent"
-import {useLocation} from "react-router-dom";
-import {User} from "../types/users";
-
-
+import RestaurantComponent from './components/restaurantComponent';
+import { useLocation } from 'react-router-dom';
+import { User } from '../types/users';
+import NoUser from './components/noUser';
 
 function CustomerPage() {
     const location = useLocation();
     const user: User = location.state?.user;
     const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
 
     const order: Order = {
         // Change this to the actual, completed order when implemented
@@ -33,7 +31,7 @@ function CustomerPage() {
             _id: '672df723f54107237ff75573',
             street: 'Maple Street 12',
             city: 'Copenhagen',
-            postalCode: 1001,
+            postalCode: '1001',
         },
         totalPrice: 50,
         orderItemList: [
@@ -68,6 +66,7 @@ function CustomerPage() {
         timestamp: '2024-11-20T12:00:00.000Z',
         rejectReason: undefined,
         feedbackID: '',
+        employeeID: '',
     };
 
     const fetchRestaurants = async () => {
@@ -91,6 +90,8 @@ function CustomerPage() {
         fetchRestaurants();
     }, []);
 
+    if (!user) return <NoUser />;
+
     return (
         <div>
             {restaurants.length > 0 && (
@@ -103,15 +104,8 @@ function CustomerPage() {
                 </select>
             )}
 
-
-
-
-            {restaurant && (
-                <RestaurantComponent restaurant={restaurant} user = {user} />)
-            }
+            {restaurant && <RestaurantComponent restaurant={restaurant} user={user} />}
             <FeedbackForm order={order}></FeedbackForm>
-
-
         </div>
     );
 }

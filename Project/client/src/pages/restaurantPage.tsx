@@ -1,18 +1,15 @@
-
 import { useEffect, useState } from 'react';
 import { Order } from '../types/orders';
 import { GetOrdersAPIByRestaurantID } from '../api/orders';
 import { useLocation } from 'react-router-dom';
 import { User } from '../types/users';
 import { LineChart } from '@mui/x-charts';
-import {
-    orderCountToLineChartSeries,
-    orderIncomeToLineChartSeries,
-} from '../chartFunctions/linechart.ts';
+import { orderCountToLineChartSeries, orderIncomeToLineChartSeries } from '../chartFunctions/linechart.ts';
 import OrderCard from '../components/orders/orderCard.tsx';
 import OrderCardDetailed from '../components/orders/orderCardDetailed.tsx';
 import { OrderStatusEnum } from '../utilities/orders.ts';
 import { Divider } from '@mui/material';
+import NoUser from './components/noUser.tsx';
 
 function RestaurantPage() {
     const location = useLocation();
@@ -35,8 +32,8 @@ function RestaurantPage() {
                 setLabelType('Income');
                 setLabelType('Order count');
                 const series = orderCountToLineChartSeries(orders);
-                const y:number[] = [];
-                const labels:string[] = [];
+                const y: number[] = [];
+                const labels: string[] = [];
 
                 series.forEach((l) => {
                     y.push(l.y);
@@ -59,6 +56,9 @@ function RestaurantPage() {
     function filterOrders(orders: Order[], statuses: number[]): Order[] {
         return orders.filter((order) => statuses.includes(order.status));
     }
+
+    if (!user) return <NoUser />;
+
     return (
         <div>
             <div>
@@ -67,8 +67,8 @@ function RestaurantPage() {
                         if (labelType == 'Income') {
                             setLabelType('Order count');
                             const series = orderCountToLineChartSeries(orders);
-                            const y:number[] = [];
-                            const labels:string[] = [];
+                            const y: number[] = [];
+                            const labels: string[] = [];
 
                             series.forEach((l) => {
                                 y.push(l.y);
@@ -80,8 +80,8 @@ function RestaurantPage() {
                         } else if (labelType == 'Order count') {
                             setLabelType('Income');
                             const series = orderIncomeToLineChartSeries(orders);
-                            const y:number[] = [];
-                            const labels:string[] = [];
+                            const y: number[] = [];
+                            const labels: string[] = [];
 
                             series.forEach((l) => {
                                 y.push(l.y);
@@ -129,9 +129,7 @@ function RestaurantPage() {
                                 borderStyle: 'solid',
                             }}
                         >
-                            <h1 style={{ textAlign: 'center' }}>
-                                Waiting for evaluation
-                            </h1>
+                            <h1 style={{ textAlign: 'center' }}>Waiting for evaluation</h1>
                             <Divider />
                             <div
                                 style={{
@@ -140,14 +138,8 @@ function RestaurantPage() {
                                     overflowY: 'auto',
                                 }}
                             >
-                                {filterOrders(orders, [
-                                    OrderStatusEnum.Created,
-                                ]).map((order) => (
-                                    <OrderCard
-                                        key={order.userID}
-                                        order={order}
-                                        setSelectedOrder={setSelectedOrder}
-                                    />
+                                {filterOrders(orders, [OrderStatusEnum.Created]).map((order) => (
+                                    <OrderCard key={order.userID} order={order} setSelectedOrder={setSelectedOrder} />
                                 ))}
                             </div>
                         </div>
@@ -160,9 +152,7 @@ function RestaurantPage() {
                                 borderStyle: 'solid',
                             }}
                         >
-                            <h1 style={{ textAlign: 'center' }}>
-                                Accepted - on the way
-                            </h1>
+                            <h1 style={{ textAlign: 'center' }}>Accepted - on the way</h1>
                             <Divider />
                             <div
                                 style={{
@@ -171,16 +161,15 @@ function RestaurantPage() {
                                     overflowY: 'auto',
                                 }}
                             >
-                                {filterOrders(orders, [
-                                    OrderStatusEnum.Accepted,
-                                    OrderStatusEnum.OnItsWay,
-                                ]).map((order) => (
-                                    <OrderCard
-                                        key={order.userID}
-                                        order={order}
-                                        setSelectedOrder={setSelectedOrder}
-                                    />
-                                ))}
+                                {filterOrders(orders, [OrderStatusEnum.Accepted, OrderStatusEnum.OnItsWay]).map(
+                                    (order) => (
+                                        <OrderCard
+                                            key={order.userID}
+                                            order={order}
+                                            setSelectedOrder={setSelectedOrder}
+                                        />
+                                    )
+                                )}
                             </div>
                         </div>
 
@@ -193,9 +182,7 @@ function RestaurantPage() {
                                 borderStyle: 'solid',
                             }}
                         >
-                            <h1 style={{ textAlign: 'center' }}>
-                                Completed or rejected
-                            </h1>
+                            <h1 style={{ textAlign: 'center' }}>Completed or rejected</h1>
                             <Divider />
                             <div
                                 style={{
@@ -204,16 +191,15 @@ function RestaurantPage() {
                                     overflowY: 'auto',
                                 }}
                             >
-                                {filterOrders(orders, [
-                                    OrderStatusEnum.Complete,
-                                    OrderStatusEnum.Rejected,
-                                ]).map((order) => (
-                                    <OrderCard
-                                        key={order.userID}
-                                        order={order}
-                                        setSelectedOrder={setSelectedOrder}
-                                    />
-                                ))}
+                                {filterOrders(orders, [OrderStatusEnum.Complete, OrderStatusEnum.Rejected]).map(
+                                    (order) => (
+                                        <OrderCard
+                                            key={order.userID}
+                                            order={order}
+                                            setSelectedOrder={setSelectedOrder}
+                                        />
+                                    )
+                                )}
                             </div>
                         </div>
                         <div
@@ -229,10 +215,7 @@ function RestaurantPage() {
                             <Divider />
 
                             {selectedOrder && (
-                                <OrderCardDetailed
-                                    selectedOrder={selectedOrder}
-                                    fetchOrders={fetchOrders}
-                                />
+                                <OrderCardDetailed selectedOrder={selectedOrder} fetchOrders={fetchOrders} />
                             )}
                         </div>
                     </div>
