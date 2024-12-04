@@ -61,7 +61,7 @@ async function getMenuItems(orders: Order[]) {
     return orders;
 }
 
-async function acceptRejectOrder(orderId: string, newStatus: number, rejectReason: string) {
+async function acceptRejectOrder(orderId: string, newStatus: number, rejectReason?: string) {
     if (newStatus < 0 || newStatus > 4) {
         throw new Error('Status must be between between 0 and 4, inclusive');
     } else if (newStatus !== 1 && rejectReason) {
@@ -151,7 +151,7 @@ async function GetAllAcceptedOrders(): Promise<Order[] | null> {
         return acceptedOrderList;
     } catch (error) {
         console.error('Error fetching orders:', error);
-        return null;
+        throw new Error('' + error);
     }
 }
 async function GetOwnOrders(employeeID: string, status: number): Promise<Order[] | null> {
@@ -164,10 +164,6 @@ async function GetOwnOrders(employeeID: string, status: number): Promise<Order[]
                 status: status,
             },
         });
-
-        if (!orders) {
-            throw new Error(`Orders with employee ID ${employeeID} not found`);
-        }
 
         const ownOrderList: Order[] = [];
 
@@ -189,7 +185,7 @@ async function GetOwnOrders(employeeID: string, status: number): Promise<Order[]
         return ownOrderList;
     } catch (error) {
         console.error('Error fetching orders:', error);
-        return null;
+        throw new Error('Error retrieving orders');
     }
 }
 
@@ -281,8 +277,7 @@ async function getRatingAVG(orderID: ObjectId) {
     });
 
     if (!order) {
-        // throw new Error(`Order with ID ${orderID} not found`);
-        return null;
+        throw new Error(`Order with ID ${orderID} not found`);
     }
 
     const feedback = await feedbackRepository.findOne({
@@ -291,13 +286,10 @@ async function getRatingAVG(orderID: ObjectId) {
         },
     });
 
-    if (!feedback)
-        // throw new Error(`Feedback with ID ${order.feedbackID} not found`);
-        return null;
+    if (!feedback) throw new Error(`Feedback with ID ${order?.feedbackID} not found`);
 
     if (!feedback?.deliveryRating || !feedback?.foodRating || !feedback?.overallRating)
-        // throw new Error('Feedback ratings are imcomplete for feedback #' + feedback?._id);
-        return null;
+        throw new Error('Feedback ratings are incomplete for feedback #' + feedback?._id);
 
     const avgRating = (feedback?.deliveryRating + feedback?.foodRating + feedback?.overallRating) / 3;
 
@@ -306,6 +298,7 @@ async function getRatingAVG(orderID: ObjectId) {
 
 async function calculateAndUpdateOrderPay(orderID: string) {
     const orderObjectID = new ObjectId(orderID);
+
     const order = await orderRepository.findOne({
         where: { _id: orderObjectID },
     });
@@ -317,13 +310,6 @@ async function calculateAndUpdateOrderPay(orderID: string) {
     });
 
     const totalOrdersAmount = allOrders.length;
-
-    // const totalOrders = await orderRepository.count({
-    //     where: {
-    //         employeeID: order?.employeeID,
-    //     },
-    // });
-    // Commented out code above no work... count() works, the "where clause" on find() works , but count() with the same "where clause" returns 0...
 
     if (!order) {
         throw new Error(`Order with ID ${orderID} not found`);
@@ -353,7 +339,7 @@ async function calculateAndUpdateOrderPay(orderID: string) {
     }
 
     if (order.pickUpDate && order.completionDate) {
-        const deliveryTimeInMinutes = (Number(order.pickUpDate) - Number(order.completionDate)) / 1000 / 60;
+        const deliveryTimeInMinutes = (Number(order.completionDate) - Number(order.pickUpDate)) / 1000 / 60;
         let multiplier = 1;
 
         if (deliveryTimeInMinutes <= 30) {
@@ -400,4 +386,5 @@ export {
     GetOwnOrders, // Delivery
     completeOrderAsDelivery, // Delivery
     calculateAndUpdateOrderPay, // Delivery
+    getRatingAVG,
 };

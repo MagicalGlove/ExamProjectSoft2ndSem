@@ -15,7 +15,7 @@ describe('Post /paymentService/validatePayment', () => {
         expect(response).toEqual(true);
     });
 
-    it('Should return false', async () => {
+    it('Amount too small, should return false', async () => {
         const response = await pay(100, 'customerId');
         expect(response).toEqual(false);
     });
@@ -28,7 +28,7 @@ describe('Post /paymentService/validatePayment', () => {
         expect(response.status).toBe(200);
     });
 
-    it('Should return 400 status code', async () => {
+    it('Amount too small, should return 400 status code', async () => {
         const response = await request(app)
             .post('/paymentService/validatePayment')
             .send({ price: 100, customerId: 'customerId' });

@@ -1,3 +1,5 @@
+import ImageDisplay from '../../components/imageDisplay';
+
 function NoUser() {
     const handleRedirect = () => {
         window.location.href = '/';
@@ -12,6 +14,7 @@ function NoUser() {
                 justifyContent: 'center',
             }}
         >
+            <ImageDisplay />
             <h1>You are not logged in!</h1>
             <button
                 onClick={handleRedirect}
