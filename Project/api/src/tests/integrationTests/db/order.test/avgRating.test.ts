@@ -49,8 +49,8 @@ describe('get average rating', () => {
 
         dummyOrder = {
             ...dummyOrder,
-            status: 3,
             employeeID: new ObjectId('672df427f54107237ff75569'),
+            status: 3,
             feedbackID: feedback._id,
         };
 
