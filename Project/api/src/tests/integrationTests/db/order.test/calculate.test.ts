@@ -1,6 +1,5 @@
 import { AppDataSource } from '../../../../ormconfig.ts';
 import * as orderAndFeedbackRepository from '../../../../monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
-import { ObjectId } from 'mongodb';
 import { Order } from '../../../../monolithOrderAndFeedback/Order.ts';
 import {
     createOrders,
@@ -27,7 +26,7 @@ describe('calculate and complete order', () => {
 
     afterEach(async () => {
         const repository = AppDataSource.getRepository(Order);
-        await repository.delete({}); //Deletes all documents in the collection
+        await repository.delete({});
     });
 
     afterAll(async () => {
