@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 import { Order } from '../../../../monolithOrderAndFeedback/Order.ts';
 import { Feedback } from '../../../../monolithOrderAndFeedback/Feedback.ts';
 import { createOrders, createOrders2 } from '../../../utilities.ts';
+import { mockUpdateOrder } from '../../../mocks/orderMocksDB.ts';
 jest.mock('../../../../adapters/messaging');
 jest.mock('../../../../adapters/kafkaAdapter');
 describe('get average rating', () => {
@@ -47,12 +48,7 @@ describe('get average rating', () => {
                 feedbackData
             );
 
-        dummyOrder = {
-            ...dummyOrder,
-            employeeID: new ObjectId('672df427f54107237ff75569'),
-            status: 3,
-            feedbackID: feedback._id,
-        };
+        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id);
 
         const order = await orderRepository.save(dummyOrder);
 

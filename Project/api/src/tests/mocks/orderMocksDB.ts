@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb';
+import { Order } from '../../monolithOrderAndFeedback/Order';
 
 export const getAllOrdersMockOrder1 = {
     customerID: new ObjectId('672df427f54107237ff75565'),
@@ -130,5 +131,17 @@ export const mockOrderCreate = {
     employeeID: null,
     feedbackID: null,
 };
+
+export function mockUpdateOrder(
+    order: Order,
+    feedbackID: ObjectId
+): Order {
+    return {
+        ...order,
+        status: 3,
+        employeeID: new ObjectId('672df427f54107237ff75569'),
+        feedbackID,
+    };
+}
 
 export const getAllOrdersMockOrderArray = [getAllOrdersMockOrder1, getAllOrdersMockOrder2];
