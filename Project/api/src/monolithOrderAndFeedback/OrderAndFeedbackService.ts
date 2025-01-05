@@ -19,6 +19,7 @@ async function createOrder(
 ): Promise<Order | null> {
     const orderFactory: OrderFactory = new OrderFactory();
 
+    console.log('before create')
     const order = await orderFactory.CreateOrder(
         customerID,
         restaurantID,
@@ -27,6 +28,8 @@ async function createOrder(
         orderItemList,
         timestamp
     );
+
+    console.log('after create')
 
     const messageBroker: MessageBroker = new KafkaAdapter(
         'order-service',

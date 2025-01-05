@@ -37,7 +37,7 @@ describe("System Test - Create Order Flow", () => {
     const orderDetails = {
       customerID,
       restaurantID,
-      orderItemList,
+      menuItems: orderItemList,
       address,
       totalPrice,
       timestamp
