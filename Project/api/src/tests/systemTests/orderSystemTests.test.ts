@@ -32,7 +32,18 @@ describe("System Test - Create Order Flow", () => {
   it("should create an order and publish an event", async () => {
     const orderRepository = AppDataSource.getRepository(Order);
 
-    const response = await request(app).post("/createOrder").send(mockOrderCreate);
+    const { customerID, restaurantID, orderItemList, address, totalPrice, timestamp} = mockOrderCreate;
+
+    const orderDetails = {
+      customerID,
+      restaurantID,
+      orderItemList,
+      address,
+      totalPrice,
+      timestamp
+  };
+
+    const response = await request(app).post("/createOrder").send(orderDetails);
 
     // Validate API response
     expect(response.status).toBe(200);
