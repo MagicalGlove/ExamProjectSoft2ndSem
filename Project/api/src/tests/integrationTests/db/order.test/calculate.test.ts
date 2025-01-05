@@ -26,7 +26,7 @@ describe('calculate and complete order', () => {
 
     afterEach(async () => {
         const repository = AppDataSource.getRepository(Order);
-        await repository.delete({});
+        await repository.delete({}); //Deletes all documents in the collection
     });
 
     afterAll(async () => {
@@ -50,7 +50,7 @@ describe('calculate and complete order', () => {
                 feedbackData
             );
 
-        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id);
+        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id); //comment
 
         const order = await orderRepository.save(dummyOrder);
 
