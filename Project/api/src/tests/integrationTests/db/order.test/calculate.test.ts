@@ -7,7 +7,6 @@ import {
     setOrderHours,
 } from '../../../utilities.ts';
 import { mockOrderWithId, mockUpdateOrder } from '../../../mocks/orderMocksDB.ts';
-import { Feedback } from '../../../../monolithOrderAndFeedback/Feedback.ts';
 jest.mock('../../../../adapters/messaging');
 jest.mock('../../../../adapters/kafkaAdapter');
 describe('calculate and complete order', () => {
@@ -50,19 +49,6 @@ describe('calculate and complete order', () => {
             await orderAndFeedbackRepository.createFeedbackAndLinkOrder(
                 feedbackData
             );
-
-            if (!feedback) return;
-
-        let dummyFeedback = feedback
-
-        const feedbackConvertion = (feedback: Feedback) => {
-            feedback.deliveryRating += 1
-            feedback.foodRating += 1
-            feedback.overallRating +=1
-            return feedback
-        }
-
-        dummyFeedback = feedbackConvertion(dummyFeedback)
 
         dummyOrder = mockUpdateOrder(dummyOrder, feedback._id);
 
