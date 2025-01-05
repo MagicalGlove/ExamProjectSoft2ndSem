@@ -26,6 +26,7 @@ describe('calculate and complete order', () => {
 
     afterEach(async () => {
         const repository = AppDataSource.getRepository(Order);
+        // eslint-disable-next-line sonarjs/no-duplicate-string
         await repository.delete({}); //Deletes all documents in the collection
     });
 
@@ -50,7 +51,8 @@ describe('calculate and complete order', () => {
                 feedbackData
             );
 
-        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id); //comment
+        // eslint-disable-next-line sonarjs/no-duplicate-string
+        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id);
 
         const order = await orderRepository.save(dummyOrder);
 
