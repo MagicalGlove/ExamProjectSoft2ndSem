@@ -83,8 +83,8 @@ app.post('/login', async (req: Request, res: Response) => {
         if (
             typeof req.body.username !== 'string' ||
             typeof req.body.password !== 'string' ||
-            !/^[a-zA-Z0-9_]+$/.test(req.body.username) || // Only allow alphanumeric and underscores
-            !/^[a-zA-Z0-9_]+$/.test(req.body.password) // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.username) || // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.password) // Only allow alphanumeric and underscores
         ) {
             res.status(400).json({
                 error: 'invalid input',
@@ -319,17 +319,7 @@ app.post('/completeOrderAsDelivery', async (req: Request, res: Response) => {
             res.status(401).json({ error: 'Invalid order data' });
             return;
         }
-        /*
-        const messageBroker: MessageBroker = new KafkaAdapter(
-            'mtogo',
-            'mtogo-group',
-            'user_events'
-        );
 
-        await messageBroker.sendEvent('OrderCompleted', {
-            order: order1,
-        });
-        */
         res.json(order1);
     } catch (error) {
         console.error('Error completing order: ', error);

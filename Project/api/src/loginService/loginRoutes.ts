@@ -10,8 +10,8 @@ loginRouter.post('/validateCredentials', async (req /*source*/, res) => {
         if (
             typeof req.body.username !== 'string' ||
             typeof req.body.password !== 'string' ||
-            !/^[a-zA-Z0-9_]+$/.test(req.body.username) || // Only allow alphanumeric and underscores
-            !/^[a-zA-Z0-9_]+$/.test(req.body.password) // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.username) || // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.password) // Only allow alphanumeric and underscores
         ) {
             res.status(400).json({
                 error: 'invalid input',

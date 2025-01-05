@@ -100,7 +100,7 @@ export const handlers = [
 
     http.post<never, Order>(`${VITE_BASE_URL}/getOwnOrders`, async ({ request }) => {
         const credentials = await request.json();
-        const { employeeID, status } = credentials;
+        const { employeeID } = credentials;
 
         if (employeeID === '111') {
             return new Response(
@@ -147,7 +147,6 @@ export const handlers = [
         const credentials = await request.json();
         const {
             orderID,
-            employeeID,
         } = credentials;
 
 

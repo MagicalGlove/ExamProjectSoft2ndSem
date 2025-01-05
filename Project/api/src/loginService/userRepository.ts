@@ -14,8 +14,8 @@ async function validateCredentials(credentials: UserCredentials /*source*/) {
         typeof password !== 'string' ||
         username.trim() === '' ||
         password.trim() === '' ||
-        !/^[a-zA-Z0-9_]+$/.test(username) || // Only allow alphanumeric and underscores
-        !/^[a-zA-Z0-9_]+$/.test(password)    // Only allow alphanumeric and underscores
+        !/^\w+$/.test(username) || // Only allow alphanumeric and underscores
+        !/^\w+$/.test(password)    // Only allow alphanumeric and underscores
     ) {
         throw new Error('Invalid credentials format');
     }
@@ -68,7 +68,6 @@ function validateAddress(address: Address ) {
     if (!/^\d+$/.test(address.postalCode)) {
         throw new Error('Invalid postal code');
     }
-    return ;
 }
 
 export { validateCredentials };
