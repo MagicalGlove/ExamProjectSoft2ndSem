@@ -2,9 +2,9 @@ import { Kafka, Producer, Consumer } from 'kafkajs';
 import MessageBroker from './types/types.ts';
 
 export class KafkaAdapter implements MessageBroker {
+    private static producer: Producer | undefined;
+    private static consumer: Consumer | undefined;
     private kafka: Kafka;
-    private producer: Producer | undefined;
-    private consumer: Consumer | undefined;
     private readonly topic: string;
     private readonly groupId: string;
 
@@ -19,26 +19,25 @@ export class KafkaAdapter implements MessageBroker {
         this.topic = topic;
     }
 
-    createProducer() {
-        if (!this.producer) {
-            this.producer = this.kafka.producer();
+    getProducer() {
+        if (!KafkaAdapter.producer) {
+            KafkaAdapter.producer = this.kafka.producer();
             console.log('Creating new producer');
         }
-        return this.producer;
+        return KafkaAdapter.producer;
     }
 
-    createConsumer(groupId: string) {
-        if (!this.consumer) {
-            this.consumer = this.kafka.consumer({ groupId: groupId });
+    getConsumer(groupId: string) {
+        if (!KafkaAdapter.consumer) {
+            KafkaAdapter.consumer = this.kafka.consumer({ groupId: groupId });
             console.log('Creating new consumer');
         }
-        return this.consumer;
+        return KafkaAdapter.consumer;
     }
 
-    // Adapter method for sending events
     async sendEvent(eventType: string, payload: any): Promise<void> {
         const retries = 3;
-        const producer = this.createProducer();
+        const producer = this.getProducer();
 
         try {
             await producer.connect();
@@ -59,7 +58,7 @@ export class KafkaAdapter implements MessageBroker {
                     };
 
                     await producer.send(message);
-                    return; // Exit the function if the message is sent successfully
+                    return;
                 } catch (error) {
                     if (attempt === retries) {
                         throw error;
@@ -72,11 +71,10 @@ export class KafkaAdapter implements MessageBroker {
         }
     }
 
-    // Adapter method for consuming events
     async consumeEvents(
         handler: (eventType: string, payload: any) => void
     ): Promise<void> {
-        const consumer = this.createConsumer(this.groupId);
+        const consumer = this.getConsumer(this.groupId);
         await consumer.connect();
         await consumer.subscribe({
             topic: this.topic,
