@@ -9,7 +9,7 @@ export enum OrderStatusEnum {
 export function OrderStatusTextEnum(status: number): string {
     switch (status) {
         case OrderStatusEnum.Created:
-            return 'Pending...'; // Created
+            return 'Pending...';
 
         case OrderStatusEnum.Accepted:
             return 'Accepted';
