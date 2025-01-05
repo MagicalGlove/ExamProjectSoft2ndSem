@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 7.948666666666667, "KoPercent": 92.05133333333333};
+    var data = {"OkPercent": 68.18, "KoPercent": 31.82};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [7.944444444444444E-5, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [2.3833333333333334E-4, 500, 1500, "Login Page"], "isController": false}, {"data": [0.0, 500, 1500, "Pay"], "isController": false}, {"data": [0.0, 500, 1500, "Get all restaurants"], "isController": false}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.029238888888888887, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.08723333333333333, 500, 1500, "Login Page"], "isController": false}, {"data": [0.0, 500, 1500, "Pay"], "isController": false}, {"data": [4.8333333333333334E-4, 500, 1500, "Get all restaurants"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 900000, 828462, 92.05133333333333, 6479.47147777791, 0, 178151, 479.0, 147091.9, 149101.0, 152121.99, 1201.6550795962974, 2776.1988997220506, 22.101764413518886], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Login Page", 300000, 254930, 84.97666666666667, 8249.782113333311, 0, 100346, 1.0, 71045.9, 74025.0, 76066.0, 444.65260773932687, 966.2183634301392, 15.39569126064943], "isController": false}, {"data": ["Pay", 300000, 300000, 100.0, 32.65333999999957, 0, 4317, 1.0, 220.0, 410.9500000000007, 1326.9900000000016, 416.79112512764226, 1006.6248650855812, 2.7493561445431625], "isController": false}, {"data": ["Get all restaurants", 300000, 273532, 91.17733333333334, 11155.978979999996, 0, 178151, 4.0, 147091.9, 149101.0, 152121.99, 401.33134986461755, 940.2334845460675, 5.6016763777705245], "isController": false}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 90000, 28638, 31.82, 17894.092111111186, 42, 230182, 2984.0, 72922.90000000002, 119999.0, 220053.96000000002, 135.04510506509175, 80.30493219891694, 28.48607684966779], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Login Page", 30000, 0, 0.0, 19963.698733333396, 42, 119980, 2253.0, 80363.5, 91509.8, 98633.76000000004, 46.54106783826048, 22.17972764167101, 9.862706758693871], "isController": false}, {"data": ["Pay", 30000, 28638, 95.46, 338.8859666666692, 113, 2300, 158.0, 598.0, 1218.0, 1943.9900000000016, 45.02996744333354, 13.358289355628672, 11.829161369391331], "isController": false}, {"data": ["Get all restaurants", 30000, 0, 0.0, 33379.69163333327, 94, 230182, 5078.0, 153107.0, 169085.20000000007, 220053.96000000002, 45.14400938995395, 45.6289548033226, 7.141923360520059], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["400/Bad Request", 7794, 0.940779420178596, 0.866], "isController": false}, {"data": ["Non HTTP response code: java.net.BindException/Non HTTP response message: Address already in use: connect", 820668, 99.0592205798214, 91.18533333333333], "isController": false}]}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["400/Bad Request", 28638, 100.0, 31.82], "isController": false}]}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 900000, 828462, "Non HTTP response code: java.net.BindException/Non HTTP response message: Address already in use: connect", 820668, "400/Bad Request", 7794, "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["Login Page", 300000, 254930, "Non HTTP response code: java.net.BindException/Non HTTP response message: Address already in use: connect", 254930, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["Pay", 300000, 300000, "Non HTTP response code: java.net.BindException/Non HTTP response message: Address already in use: connect", 292206, "400/Bad Request", 7794, "", "", "", "", "", ""], "isController": false}, {"data": ["Get all restaurants", 300000, 273532, "Non HTTP response code: java.net.BindException/Non HTTP response message: Address already in use: connect", 273532, "", "", "", "", "", "", "", ""], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 90000, 28638, "400/Bad Request", 28638, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": [], "isController": false}, {"data": ["Pay", 30000, 28638, "400/Bad Request", 28638, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 

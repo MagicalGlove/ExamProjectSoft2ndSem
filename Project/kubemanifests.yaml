@@ -141,7 +141,8 @@ spec:
         io.kompose.service: api
     spec:
       containers:
-        - image: api
+        - image: project-api
+          imagePullPolicy: 'Never'
           name: api
           ports:
             - containerPort: 3001
@@ -172,7 +173,8 @@ spec:
         io.kompose.service: client
     spec:
       containers:
-        - image: client
+        - image: project-client
+          imagePullPolicy: 'Never'
           name: client
           ports:
             - containerPort: 5173

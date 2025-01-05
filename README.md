@@ -25,7 +25,7 @@ This will then run all the tests in the application. With the command including 
 ## How to start the application locally
 Start a command terminal and then in the both the client folder and api folder write the command `npm install` which should download and install all dependicies for the application if not done already.
 
-With dependicies installed return to the Project folder and run the commands: `docker compose build` and then `kubectl apply -f .\kubemanifests.yaml`
+With dependicies installed return to the Project folder and run `setupKubePods.bat`
 
 The "api" (Backend) runs on port [3001](http://localhost/3001).
 
@@ -44,8 +44,6 @@ and
 can help in killing applications running on a port.
 
 After clearing the ports try restarting docker, as the application killed may have been docker itself, and/or the containers/pods.
-
-To remove the Kubernetes pods use the command `kubectl get pods` to get all pod names. Then use `kubectl delete pods -l app=<podName>` where podName is the name of the pod minus the identifiying numbers. Example: "api-649d66df74-knkcj" would be remove using `kubectl delete pods -l app=api`.
 
 ### Logins
 
