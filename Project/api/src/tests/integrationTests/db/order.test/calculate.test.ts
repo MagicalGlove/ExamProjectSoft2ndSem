@@ -1,13 +1,12 @@
 import { AppDataSource } from '../../../../ormconfig.ts';
 import * as orderAndFeedbackRepository from '../../../../monolithOrderAndFeedback/OrderAndFeedbackRepository.ts';
-import { ObjectId } from 'mongodb';
 import { Order } from '../../../../monolithOrderAndFeedback/Order.ts';
 import {
     createOrders,
     createOrders2,
     setOrderHours,
 } from '../../../utilities.ts';
-import { mockOrderWithId } from '../../../mocks/orderMocksDB.ts';
+import { mockOrderWithId, mockUpdateOrder } from '../../../mocks/orderMocksDB.ts';
 jest.mock('../../../../adapters/messaging');
 jest.mock('../../../../adapters/kafkaAdapter');
 describe('calculate and complete order', () => {
@@ -51,12 +50,7 @@ describe('calculate and complete order', () => {
                 feedbackData
             );
 
-        dummyOrder = {
-            ...(dummyOrder as Order),
-            status: 3,
-            employeeID: new ObjectId('672df427f54107237ff75569'),
-            feedbackID: feedback._id,
-        };
+        dummyOrder = mockUpdateOrder(dummyOrder, feedback._id);
 
         const order = await orderRepository.save(dummyOrder);
 

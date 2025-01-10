@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 68.18, "KoPercent": 31.82};
+    var data = {"OkPercent": 60.51, "KoPercent": 39.49};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.029238888888888887, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.08723333333333333, 500, 1500, "Login Page"], "isController": false}, {"data": [0.0, 500, 1500, "Pay"], "isController": false}, {"data": [4.8333333333333334E-4, 500, 1500, "Get all restaurants"], "isController": false}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.012716666666666666, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.03726666666666666, 500, 1500, "Login Page"], "isController": false}, {"data": [0.0, 500, 1500, "Pay"], "isController": false}, {"data": [8.833333333333333E-4, 500, 1500, "Get all restaurants"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 90000, 28638, 31.82, 17894.092111111186, 42, 230182, 2984.0, 72922.90000000002, 119999.0, 220053.96000000002, 135.04510506509175, 80.30493219891694, 28.48607684966779], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Login Page", 30000, 0, 0.0, 19963.698733333396, 42, 119980, 2253.0, 80363.5, 91509.8, 98633.76000000004, 46.54106783826048, 22.17972764167101, 9.862706758693871], "isController": false}, {"data": ["Pay", 30000, 28638, 95.46, 338.8859666666692, 113, 2300, 158.0, 598.0, 1218.0, 1943.9900000000016, 45.02996744333354, 13.358289355628672, 11.829161369391331], "isController": false}, {"data": ["Get all restaurants", 30000, 0, 0.0, 33379.69163333327, 94, 230182, 5078.0, 153107.0, 169085.20000000007, 220053.96000000002, 45.14400938995395, 45.6289548033226, 7.141923360520059], "isController": false}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 90000, 35541, 39.49, 36904.02431111166, 37, 331271, 14037.5, 184179.0, 229191.95, 288232.83000000165, 117.42602160638798, 65.4219215320997, 24.769551432597464], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["Login Page", 30000, 3022, 10.073333333333334, 46687.95843333348, 37, 165075, 70058.5, 126027.30000000002, 142279.05000000002, 158253.81000000003, 40.87722525394976, 18.788907879766455, 8.662458867292088], "isController": false}, {"data": ["Pay", 30000, 28282, 94.27333333333333, 465.9741000000022, 113, 5260, 180.0, 1305.0, 1953.0, 3172.9600000000064, 39.15288811279164, 11.612565634107126, 10.285280178067335], "isController": false}, {"data": ["Get all restaurants", 30000, 4237, 14.123333333333333, 63558.140400000266, 92, 331271, 14243.5, 226192.9, 249119.35, 293217.0, 39.25144870555264, 35.921411761353156, 6.209701845995633], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["400/Bad Request", 28638, 100.0, 31.82], "isController": false}]}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["400/Bad Request", 28282, 79.5757013027208, 31.424444444444443], "isController": false}, {"data": ["500/Internal Server Error", 7259, 20.424298697279198, 8.065555555555555], "isController": false}]}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 90000, 28638, "400/Bad Request", 28638, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": [], "isController": false}, {"data": ["Pay", 30000, 28638, "400/Bad Request", 28638, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 90000, 35541, "400/Bad Request", 28282, "500/Internal Server Error", 7259, "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["Login Page", 30000, 3022, "500/Internal Server Error", 3022, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["Pay", 30000, 28282, "400/Bad Request", 28282, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["Get all restaurants", 30000, 4237, "500/Internal Server Error", 4237, "", "", "", "", "", "", "", ""], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 

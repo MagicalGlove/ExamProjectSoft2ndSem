@@ -1,8 +1,6 @@
 import { VITE_BASE_URL } from '../constants';
-import { Order } from '../types/orders';
-import { OrderItem } from '../types/orders';
-//import { MenuItem } from '../types/orders';
-import { Address} from "../types/address";
+import { Address } from '../types/address';
+import { Order, OrderItem } from '../types/orders';
 
 const baseUrl = VITE_BASE_URL;
 

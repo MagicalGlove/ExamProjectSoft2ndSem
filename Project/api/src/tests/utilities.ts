@@ -47,7 +47,7 @@ export function setOrderHours(
     completionDateHours: number[]
 ) {
     dummyOrder = {
-        ...(dummyOrder as Order),
+        ...dummyOrder,
         status: 3,
         employeeID: new ObjectId('672df427f54107237ff75569'),
         feedbackID: feedbackID,

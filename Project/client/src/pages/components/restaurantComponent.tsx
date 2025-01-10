@@ -1,5 +1,4 @@
-import { Restaurant } from '../../types/restaurants';
-import { MenuItem } from '../../types/restaurants';
+import { Restaurant, MenuItem } from '../../types/restaurants';
 import { User } from '../../types/users';
 import {  ChangeEvent, useState } from 'react';
 import ShoppingCart from './ShoppingCart';
@@ -13,13 +12,13 @@ interface RestaurantPageProps {
     user: User;
 }
 
-interface menuItemLine {
+interface MenuItemLine {
     menuItemID: MenuItem;
     quantity: number;
 }
 
-function RestaurantComponent({ restaurant, user }: RestaurantPageProps) {
-    const [menuItems, setMenuItems] = useState<menuItemLine[]>([]);
+function RestaurantComponent({ restaurant, user }: Readonly<RestaurantPageProps>) {
+    const [menuItems, setMenuItems] = useState<MenuItemLine[]>([]);
     const [handlingPayment, setHandlingPayment] = useState<boolean>(false);
     const [orderComplete, setOrderComplete] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -32,8 +31,6 @@ function RestaurantComponent({ restaurant, user }: RestaurantPageProps) {
         setHandlingPayment(true);
         try {
             setTotalPrice(menuItems.reduce((total, item) => total + item.menuItemID.price * item.quantity, 0));
-            //const order = await createOrder(user._id, restaurant._id, menuItems, user.address, totalPrice);
-            //console.log('Order created:', order);
         } catch (error) {
             console.error('Error creating order:', error);
         }

@@ -2,10 +2,10 @@ import { Stripe } from 'stripe';
 import { PaymentStrategy } from './types/payment.ts';
 
 export class StripePaymentStrategy implements PaymentStrategy {
-    private apiKey =
+    private readonly apiKey =
         'sk_test_51Q9kMkFpImY9hrD4SNtwYUp8z7y411DmXJ2sA3ahnPxmGcUT34ylDpJSVArqQpRVlkmFHFsXzkwszTi7cJaPEwR500E6HrAWDf';
 
-    private stripe = new Stripe(this.apiKey);
+    private readonly stripe = new Stripe(this.apiKey);
     async pay(amount: number, customerId: string): Promise<boolean> {
         try {
             const stripeUserId = await this.stripe.customers.create({
