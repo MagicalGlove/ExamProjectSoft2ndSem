@@ -1,0 +1,10 @@
+2025-01-16T08:51:41.729Z [info] Data Source has been initialized! {}
+2025-01-16T08:51:41.735Z [info] Server is running at http://localhost:3001 {}
+2025-01-16T08:53:23.703Z [info] HTTP Request {"method":"POST","url":"/login","host":"localhost"}
+2025-01-16T08:53:23.704Z [info] Login attempt {"username":"user","host":"localhost","application":"LoginService"}
+2025-01-16T08:53:23.769Z [info] HTTP Request {"method":"POST","url":"/ordersByUserId","host":"localhost"}
+2025-01-16T08:53:23.774Z [info] HTTP Request {"method":"POST","url":"/ordersByUserId","host":"localhost"}
+2025-01-16T08:53:23.777Z [info] HTTP Request {"method":"GET","url":"/restaurants","host":"localhost"}
+2025-01-16T08:53:24.117Z [info] HTTP Request {"method":"GET","url":"/restaurants","host":"localhost"}
+2025-01-16T09:28:56.506Z [info] Data Source has been initialized! {}
+2025-01-16T09:28:56.510Z [info] Server is running at http://localhost:3001 {}
