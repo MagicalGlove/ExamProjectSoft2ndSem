@@ -1,16 +1,23 @@
+// @ts-nocheck
 import { http } from 'msw';
 
 import {
     acceptOrderAsDelivery,
-    acceptRejectOrder, completeOrderAsDelivery, createOrder,
-    GetAcceptedOrdersAPI, GetOrdersAPI,
+    acceptRejectOrder,
+    completeOrderAsDelivery,
+    createOrder,
+    GetAcceptedOrdersAPI,
+    GetOrdersAPI,
     GetOrdersAPIByRestaurantID,
 } from '../api/orders';
 import {
     allOrdersMock,
     acceptedOrdersMock,
     acceptRejectOrderMock,
-    ordersByIdMock, createdOrder, acceptedOrderAsDeliveryMock, completeOrderAsDeliveryMock,
+    ordersByIdMock,
+    createdOrder,
+    acceptedOrderAsDeliveryMock,
+    completeOrderAsDeliveryMock,
 } from '../mocks/orders';
 
 describe('orders tests', () => {
@@ -32,34 +39,31 @@ describe('orders tests', () => {
 
     it('should return list of accepted Orders', async () => {
         const orders = await GetAcceptedOrdersAPI();
-        expect(orders).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining(acceptedOrdersMock),
-            ]),
-        );
+        expect(orders).toEqual(expect.arrayContaining([expect.objectContaining(acceptedOrdersMock)]));
     });
 
     it('should throw and handle error for get accepted orders', async () => {
         jest.spyOn(global, 'fetch').mockImplementation(
-            jest.fn(
-                () => Promise.resolve({
+            jest.fn(() =>
+                Promise.resolve({
                     json: () => {
-                        JSON.stringify(''), {
-                            status: 401,
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        };
+                        JSON.stringify(''),
+                            {
+                                status: 401,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            };
                     },
-                }),
-            ) as jest.Mock);
+                })
+            ) as jest.Mock
+        );
 
         try {
             await GetAcceptedOrdersAPI();
         } catch (e) {
             expect(e).toBeInstanceOf(Error);
         }
-
     });
 
     it('should return list of all Orders', async () => {
@@ -70,58 +74,56 @@ describe('orders tests', () => {
 
     it('should throw and handle error for get orders', async () => {
         jest.spyOn(global, 'fetch').mockImplementation(
-            jest.fn(
-                () => Promise.resolve({
+            jest.fn(() =>
+                Promise.resolve({
                     json: () => {
-                        JSON.stringify(''), {
-                            status: 401,
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        };
+                        JSON.stringify(''),
+                            {
+                                status: 401,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            };
                     },
-                }),
-            ) as jest.Mock);
+                })
+            ) as jest.Mock
+        );
 
         try {
             await GetOrdersAPI();
         } catch (e) {
             expect(e).toBeInstanceOf(Error);
         }
-
     });
 
     it('should return list of orders by restaurant id', async () => {
-        const orders = await GetOrdersAPIByRestaurantID(
-            '672de88ff54107237ff75565',
-        );
+        const orders = await GetOrdersAPIByRestaurantID('672de88ff54107237ff75565');
 
-        expect(orders).toEqual(
-            expect.arrayContaining([expect.objectContaining(ordersByIdMock)]),
-        );
+        expect(orders).toEqual(expect.arrayContaining([expect.objectContaining(ordersByIdMock)]));
     });
 
     it('should throw and handle error for get orders by restaurant id', async () => {
         jest.spyOn(global, 'fetch').mockImplementation(
-            jest.fn(
-                () => Promise.resolve({
+            jest.fn(() =>
+                Promise.resolve({
                     json: () => {
-                        JSON.stringify(''), {
-                            status: 401,
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        };
+                        JSON.stringify(''),
+                            {
+                                status: 401,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            };
                     },
-                }),
-            ) as jest.Mock);
+                })
+            ) as jest.Mock
+        );
 
         try {
             await GetOrdersAPIByRestaurantID('random');
         } catch (e) {
             expect(e).toBeInstanceOf(Error);
         }
-
     });
 
     it('should change the status of the order', async () => {
@@ -138,7 +140,7 @@ describe('orders tests', () => {
         const order = await acceptRejectOrder(
             '673de997fa60e0a917658809', // "Kyllingevinger", for real
             1,
-            'Reason for rejecting',
+            'Reason for rejecting'
         );
 
         expect(order.status).toBe(1); // Should be 1, but the test doesn't test anything and the status therefore isn't changed :)
@@ -147,18 +149,20 @@ describe('orders tests', () => {
 
     it('should throw and handle error for accept reject orders', async () => {
         jest.spyOn(global, 'fetch').mockImplementation(
-            jest.fn(
-                () => Promise.resolve({
+            jest.fn(() =>
+                Promise.resolve({
                     json: () => {
-                        JSON.stringify(''), {
-                            status: 401,
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        };
+                        JSON.stringify(''),
+                            {
+                                status: 401,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            };
                     },
-                }),
-            ) as jest.Mock);
+                })
+            ) as jest.Mock
+        );
 
         try {
             await acceptRejectOrder('', 0);

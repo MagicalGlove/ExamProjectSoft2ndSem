@@ -6,7 +6,7 @@ describe('Test application flow', () => {
 
         cy.visit('http://localhost:5173/');
 
-        cy.get('#username').type('Abejægeren');
+        cy.get('#username').type('user');
         cy.get('#password').type('test123');
         cy.get('#cy_loginButton').click();
         cy.wait('@getRestaurants');
