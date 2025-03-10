@@ -9,19 +9,75 @@ body:
       value: |
         **What’s the problem?**  
         _Explain the problem clearly. What’s going wrong or not working?_
+  - type: dropdown
+    attributes:
+      label: "How serious is this bug?"
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+      required: true
   - type: textarea
     id: reproduce
     attributes:
       label: "Steps to Reproduce"
       description: "Detailed steps to reproduce the behavior, so that it can be easily diagnosed."
       placeholder: |
-        1. _What was the first thing you did?_
-        2. _What did you do next?_
-        3. _What happened after that?_
-        4. _Keep adding steps until we know exactly how to reproduce the problem._
-        ...
+        1. I went to...
+        2. Clicked on...
+        3. Scrolled down to...
+        4. ...
+        5. The error occured
 
-        _The more clear the steps, the easier it is for us to understand!_
+        The more clear the steps, the easier it is for us to understand!
       render: bash
     validations:
       required: true
+
+  - type: textarea
+    id: bugDescription
+    attributes:
+      label: "Description of bug"
+      description: "What happened? Was there an error message?"
+      placeholder: |
+        Examples:
+        - The entire site crashed and my computer lit on fire. Through the flames, I did notice it said "ObjectID is not defined".
+        - The app froze and I had to restart my phone. No error message was shown.
+        - The page didn't load and I got a "404 Not Found" error.
+      render: bash
+    validations:
+      required: true
+  - type: dropdown
+    id: systemInfo
+    attributes:
+      label: Which system are you on?
+      options:
+        - Windows
+        - MacOS
+        - Linux
+        - IOS
+        - Android
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: How often does this happen?
+      options:
+        - label: Every single time
+          # required: true
+        - label: Almost every time
+        - label: Sometimes
+        - label: Rarely
+        - label: Once in a blue moon
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: "Any other helpful information?"
+      description: "Is there anything else you think could help us understand or fix the problem that you haven't mentioned yet?"
+      render: bash
+    validations:
+      required: false
