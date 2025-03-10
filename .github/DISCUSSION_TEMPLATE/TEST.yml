@@ -54,7 +54,8 @@ body:
     attributes:
       label: Which system are you on?
       options:
-        - Windows
+        - Windows 11
+        - Windows 10
         - MacOS
         - Linux
         - IOS
@@ -62,6 +63,35 @@ body:
         - Other
     validations:
       required: true
+  - type: dropdown
+    id: browserInfo
+    attributes:
+      label: Which browser are you on?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Opera
+        - Internet Explorer
+        - Brave
+        - Vivaldi
+        - Tor Browser
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: otherBrowser
+    attributes:
+      label: "Please specify your browser"
+      description: "If you selected 'Other', please specify your browser here."
+      placeholder: "Enter your browser name"
+    validations:
+      required: false
+    if:
+      field: browserInfo
+      condition: equals
+      value: Other
   - type: dropdown
     id: frequency
     attributes:
