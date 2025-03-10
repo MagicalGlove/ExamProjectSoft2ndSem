@@ -88,10 +88,6 @@ body:
       placeholder: "Enter your browser name"
     validations:
       required: false
-    if:
-      field: browserInfo
-      condition: equals
-      value: Other
   - type: dropdown
     id: frequency
     attributes:
