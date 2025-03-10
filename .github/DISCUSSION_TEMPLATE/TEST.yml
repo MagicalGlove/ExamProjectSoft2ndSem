@@ -1,6 +1,7 @@
-name: Bug Discussion
+title: "Bug Discussion"
 
-description: "Please use this template if you've found something that isn't working right. This will help us understand the problem and fix it faster!"
+labels:
+  - bug
 
 body:
   - type: markdown
@@ -81,4 +82,21 @@ body:
         ---
 
         **Important:**  
-        _Please remember to be respectful and follow our [Code of Conduct]
+        _Please remember to be respectful and follow our [Code of Conduct]._
+
+  - type: input
+    attributes:
+      label: "How serious is this bug?"
+      description: "Select one from the following options."
+      options:
+        - "Low"
+        - "Medium"
+        - "High"
+        - "Critical"
+      required: true
+
+  - type: input
+    attributes:
+      label: "Frequency"
+      description: "How often does this bug occur?"
+      required: true
