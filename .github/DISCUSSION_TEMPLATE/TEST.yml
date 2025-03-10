@@ -1,55 +1,112 @@
-title: "[General] "
-labels: ["General Introduction"]
+title: "[Bug Discussion]"
+
+labels:
+  - bug
+
 body:
   - type: markdown
     attributes:
       value: |
-        This is text that will show up in the template!
+        ## Problem Overview
+        **What’s the problem?**  
+        _Explain the problem clearly. What’s going wrong or not working?_
+
   - type: textarea
-    id: improvements
+    id: reproduce
     attributes:
-      label: Top 3 improvements
-      description: "What are the top 3 improvements we could make to this project?"
-      value: |
-        1.
-        2.
-        3.
+      label: "Steps to Reproduce"
+      description: "Detailed steps to reproduce the behavior, so that it can be easily diagnosed."
+      placeholder: |
+        1. _What was the first thing you did?_
+        2. _What did you do next?_
+        3. _What happened after that?_
+        4. _Keep adding steps until we know exactly how to reproduce the problem._
         ...
+
+        _The more clear the steps, the easier it is for us to understand!_
       render: bash
-    validations:
-      required: true
+      validations:
+        required: true
+
   - type: markdown
     attributes:
       value: |
-        ## Markdown header
-        And some more markdown
-  - type: input
-    id: has-id
+        ## Expected vs Actual Behavior
+        **What should have happened?**  
+        _Tell us what you were expecting to happen instead of the bug._
+
+        ---
+
+        **What actually happened?**  
+        _Tell us what actually happened when the bug occurred._
+
+  - type: markdown
     attributes:
-      label: Suggestions
-      description: A description about suggestions to help you
-    validations:
-      required: true
+      value: |
+        ## Media (Screenshots/Videos)
+        **Screenshots or Videos (if available):**  
+        _If you can, share any pictures or videos showing the problem. This can help a lot!_
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Device and Software Information
+        **Device and Software Information:**  
+        - Device: _For example: Phone, Laptop, Tablet_
+        - Operating System (OS): _For example: Windows 10, iPhone 14, Android 11_
+        - App Version (if available): _For example: Version 1.2.3_
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Frequency & Impact
+        **How often does this happen?**  
+        _Does it happen every time, or only sometimes?_
+
+        ---
+
+        **How serious is this bug?**  
+        _How important is it to fix this? Choose one:_
+        - _Low (Not urgent)_
+        - _Medium (Could be better)_
+        - _High (Needs fixing soon)_
+        - _Critical (Should be fixed right away)_
+
+  - type: textarea
+    attributes:
+      label: "Additional Information"
+      description: "Any other helpful info"
+      placeholder: "_If there’s anything else you think could help us understand or fix the problem, please share it here._"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Assignee & Other Considerations
+        **Who should work on this?**  
+        _If you know who should fix this bug, mention them here. If not, we’ll figure it out!_
+
+        ---
+
+        **Anything else?**  
+        _Is there anything else you want to share about this bug?_
+
+        ---
+
+        **Important:**  
+        _Please remember to be respectful and follow our [Code of Conduct]._
+
   - type: dropdown
-    id: download
     attributes:
-      label: Which area of this project could be most improved?
+      label: "How serious is this bug?"
       options:
-        - Documentation
-        - Pull request review time
-        - Bug fix time
-        - Release cadence
-    validations:
+        - Low
+        - Medium
+        - High
+        - Critical
       required: true
-  - type: checkboxes
+
+  - type: textarea
     attributes:
-      label: Check that box!
-      options:
-        - label: This one!
-          required: true
-        - label: I won't stop you if you check this one, too
-  - type: markdown
-    attributes:
-      value: |
-        ### The thrilling conclusion
-        _to our template_
+      label: "Frequency"
+      description: "How often does this bug occur?"
+      required: true
