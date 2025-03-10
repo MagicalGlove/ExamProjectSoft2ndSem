@@ -1,0 +1,84 @@
+name: Bug Discussion
+
+description: "Please use this template if you've found something that isn't working right. This will help us understand the problem and fix it faster!"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐞 Bug Discussion
+
+        **Title:**  
+        _Give a short title for the problem. For example: "App crashes when I open the menu"._
+
+        ---
+
+        **What’s the problem?**  
+        _Explain the problem clearly. What’s going wrong or not working?_
+
+        ---
+
+        **How to make it happen (Steps to Reproduce):**
+
+        1. _What was the first thing you did?_
+        2. _What did you do next?_
+        3. _What happened after that?_
+        4. _Keep adding steps until we know exactly how to make the problem happen._
+
+        _The more clear the steps, the easier it is for us to understand!_
+
+        ---
+
+        **What should have happened?**  
+        _Tell us what you were expecting to happen instead of the bug._
+
+        ---
+
+        **What actually happened?**  
+        _Tell us what actually happened when the bug occurred._
+
+        ---
+
+        **Screenshots or Videos (if you have any):**  
+        _If you can, share any pictures or videos showing the problem. This can help a lot!_
+
+        ---
+
+        **What device and software are you using?**  
+        - **Device:** _For example: Phone, Laptop, Tablet_
+        - **Operating System (OS):** _For example: Windows 10, iPhone 14, Android 11_
+        - **App Version (if you know it):** _For example: Version 1.2.3_
+
+        ---
+
+        **How often does this happen?**  
+        _Does it happen every time? Or only sometimes?_
+
+        ---
+
+        **Any other helpful info:**  
+        _If there’s anything else you think could help us understand or fix the problem, please share it here._
+
+        ---
+
+        **How serious is this bug?**  
+        _How important is it to fix this? Choose one:_
+        - _Low (Not urgent)_
+        - _Medium (Could be better)_
+        - _High (Needs fixing soon)_
+        - _Critical (Should be fixed right away)_
+
+        ---
+
+        **Who should work on this?**  
+        _If you know who should fix this bug, mention them here. If not, we’ll figure it out!_
+
+        ---
+
+        **Anything else?**  
+        _Is there anything else you want to share about this bug?_
+
+        ---
+
+        **Important:**  
+        _Please remember to be respectful and follow our [Code of Conduct]
