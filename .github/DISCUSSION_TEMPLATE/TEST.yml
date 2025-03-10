@@ -42,7 +42,7 @@ body:
       description: "What happened? Was there an error message?"
       placeholder: |
         Examples:
-        - The entire site crashed and my computer lit on fire. Through the flames, I did notice it said "ObjectID is not defined".
+        - My computer lit on fire and while looking through the flames, I saw it said "ObjectID is not defined".
         - The app froze and I had to restart my phone. No error message was shown.
         - The page didn't load and I got a "404 Not Found" error.
       render: bash
@@ -61,15 +61,16 @@ body:
         - Other
     validations:
       required: true
-  - type: checkboxes
+  - type: dropdown
+    id: frequency
     attributes:
       label: How often does this happen?
       options:
-        - label: Every single time
-        - label: Almost every time
-        - label: Sometimes
-        - label: Rarely
-        - label: Once in a blue moon
+        - Every single time
+        - Almost every time
+        - Sometimes
+        - Rarely
+        - Very rarely
     validations:
       required: true
   - type: textarea
