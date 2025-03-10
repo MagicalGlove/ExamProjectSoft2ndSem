@@ -60,17 +60,6 @@ body:
         - Other
     validations:
       required: true
-  - type: checkboxes
-    attributes:
-      label: How often does this happen?
-      options:
-        - label: Every single time
-        - label: Almost every time
-        - label: Sometimes
-        - label: Rarely
-        - label: Once in a blue moon
-    validations:
-      required: true
   - type: textarea
     id: otherInfo
     attributes:
