@@ -9,6 +9,16 @@ body:
       value: |
         **What’s the problem?**  
         _Explain the problem clearly. What’s going wrong or not working?_
+  - type: dropdown
+    attributes:
+      label: "How serious is this bug?"
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
   - type: textarea
     id: reproduce
     attributes:
