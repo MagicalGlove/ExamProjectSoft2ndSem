@@ -1,4 +1,4 @@
-title: "[Bug Discussion]"
+title: "[Bug Report]"
 
 labels:
   - bug
@@ -31,7 +31,7 @@ body:
         4. ...
         5. The error occured
 
-        The more clear the steps, the easier it is for us to understand!
+        More details = Easier fixing!
       render: bash
     validations:
       required: true
@@ -77,7 +77,7 @@ body:
     id: otherInfo
     attributes:
       label: "Any other helpful information?"
-      description: "Is there anything else you think could help us understand or fix the problem that you haven't mentioned yet?"
+      description: "Is there anything else you think could help us understand or fix the problem hasn't been mentioned yet?"
       render: bash
     validations:
       required: false
