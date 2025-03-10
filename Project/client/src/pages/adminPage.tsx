@@ -1,7 +1,7 @@
 import { PieChart, LineChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
 import { GetOrdersAPI } from '../api/orders.ts';
-import { LineData, PerRestaurantsData } from '../types/chartSerieData.ts';
+import { PerRestaurantsData } from '../types/chartSerieData.ts';
 import { GetRestaurantsAPI } from '../api/restaurants.ts';
 import {
     ordersToCountChartSeries,
@@ -47,18 +47,16 @@ function AdminPage() {
                     ]}
                     width={700}
                     height={400}
-                    onItemClick={(event, d) => {
+                    onItemClick={(_, d) => {
                         const series = updateLineChartCount(d.dataIndex, incomeCount, orders);
-                        const x: number[] = [];
                         const y: number[] = [];
                         const label: string[] = [];
                         series.forEach(line => {
-                            x.push(line.x);
                             y.push(line.y);
                             label.push(line.label);
                         });
                         setYData(y);
-                        setLabels(labels);
+                        setLabels(label);
                         setLabelType("Order count over time for " + incomeCount[d.dataIndex].label.toString())
                     }}
                 />
@@ -71,13 +69,11 @@ function AdminPage() {
                     ]}
                     width={700}
                     height={400}
-                    onItemClick={(event, d) => {
+                    onItemClick={(_, d) => {
                         const series = updateLineChartIncome(d.dataIndex, incomeCount, orders);
-                        const x: number[] = [];
                         const y: number[] = [];
                         const label: string[] = [];
                         series.forEach(line => {
-                            x.push(line.x);
                             y.push(line.y);
                             label.push(line.label);
                         });

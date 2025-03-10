@@ -25,6 +25,7 @@ import { paymentServiceValidatePayment } from './paymentService/paymentServiceAd
 import { restaurantServiceGetAllRestaurants } from './adapters/restaurantServiceAdapter.ts';
 import { restaurantRouter } from './RestaurantService/restaurantRoutes.ts';
 import client from 'prom-client';
+import logger from './logger.ts';
 
 const register = new client.Registry();
 const httpRequestDuration = new client.Histogram({
@@ -58,6 +59,29 @@ app.use('/loginService', loginRouter);
 app.use('/paymentService', paymentRouter);
 app.use('/restaurantService', restaurantRouter);
 
+app.use((req, _, next) => {
+    logger.info({
+      message: 'HTTP Request',
+      method: req.method,
+      url: req.url,
+      timestamp: new Date().toISOString(),
+      host: req.hostname,
+    });
+    next();
+  });
+
+app.use((err: Error, req: express.Request, res: express.Response, _: express.NextFunction) => {
+    logger.error({
+      message: err.message,
+      stack: err.stack,
+      timestamp: new Date().toISOString(),
+      host: req.hostname,
+    });
+  
+    res.status(500).send({ error: 'An unexpected error occurred' });
+  });
+  
+
 app.post('/pay', async (req, res) => {
     try {
         const { price, customerId, paymentMethod } = req.body;
@@ -79,12 +103,20 @@ app.post('/pay', async (req, res) => {
 
 app.post('/login', async (req: Request, res: Response) => {
     try {
+        logger.info({
+            message: 'Login attempt',
+            username: req.body.username,
+            timestamp: new Date().toISOString(),
+            host: req.hostname,
+            application: 'LoginService',
+          });
+
         //validate input
         if (
             typeof req.body.username !== 'string' ||
             typeof req.body.password !== 'string' ||
-            !/^[a-zA-Z0-9_]+$/.test(req.body.username) || // Only allow alphanumeric and underscores
-            !/^[a-zA-Z0-9_]+$/.test(req.body.password) // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.username) || // Only allow alphanumeric and underscores
+            !/^\w+$/.test(req.body.password) // Only allow alphanumeric and underscores
         ) {
             res.status(400).json({
                 error: 'invalid input',
@@ -101,7 +133,10 @@ app.post('/login', async (req: Request, res: Response) => {
         res.json(user);
     } catch (error: unknown) {
         if ((error as CustomError).response?.status === 401) {
-            console.error('Error:', (error as CustomError).response.data.error);
+            logger.error({
+                message: (error as CustomError).response.data.error,
+                timestamp: new Date().toISOString(),
+              });
             // response is static and not tainted
             res.status(401).json({
                 error: 'Invalid username or password',
@@ -109,6 +144,10 @@ app.post('/login', async (req: Request, res: Response) => {
             return;
         }
         // response is static and not tainted
+        logger.error({
+            message: error,
+            timestamp: new Date().toISOString(),
+          });
         res.status(500).json({
             error: 'Error finding user',
         });
@@ -319,17 +358,7 @@ app.post('/completeOrderAsDelivery', async (req: Request, res: Response) => {
             res.status(401).json({ error: 'Invalid order data' });
             return;
         }
-        /*
-        const messageBroker: MessageBroker = new KafkaAdapter(
-            'mtogo',
-            'mtogo-group',
-            'user_events'
-        );
 
-        await messageBroker.sendEvent('OrderCompleted', {
-            order: order1,
-        });
-        */
         res.json(order1);
     } catch (error) {
         console.error('Error completing order: ', error);

@@ -4,7 +4,7 @@ import MessageBroker from './types/types.ts';
 export class KafkaAdapter implements MessageBroker {
     private static producer: Producer | undefined;
     private static consumer: Consumer | undefined;
-    private kafka: Kafka;
+    private readonly kafka: Kafka;
     private readonly topic: string;
     private readonly groupId: string;
 

@@ -10,7 +10,6 @@ import OrderCardDetailed from '../components/orders/orderCardDetailed.tsx';
 import { OrderStatusEnum } from '../utilities/orders.ts';
 import { Divider } from '@mui/material';
 import NoUser from './components/noUser.tsx';
-//import RestaurantKafkaWebSocketComponent from '../components/orders/RestaurantKafkaWebSocketComponent.tsx';
 
 function RestaurantPage() {
     const location = useLocation();
@@ -114,7 +113,6 @@ function RestaurantPage() {
                 />
             </div>
             {orders.length > 0 ? (
-                <>
                     <div
                         style={{
                             display: 'flex',
@@ -212,7 +210,6 @@ function RestaurantPage() {
                             )}
                         </div>
                     </div>
-                </>
             ) : (
                 <>
                     <h1>There are no accepted orders pending...</h1>

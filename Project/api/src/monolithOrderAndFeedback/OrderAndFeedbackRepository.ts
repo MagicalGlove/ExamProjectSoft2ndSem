@@ -69,7 +69,7 @@ async function acceptRejectOrder(orderId: string, newStatus: number, rejectReaso
     const orderTemp: Order = {
         ...order,
         status: newStatus,
-        rejectReason: rejectReason || null,
+        rejectReason: rejectReason ?? null,
     };
 
     const updatedOrder = await orderRepository.save(orderTemp);

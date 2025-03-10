@@ -8,19 +8,19 @@ export enum OrderStatusEnum {
 
 export function OrderStatusTextEnum(status: number): string {
     switch (status) {
-        case (status = OrderStatusEnum.Created):
-            return 'Pending...'; // Created
+        case OrderStatusEnum.Created:
+            return 'Pending...';
 
-        case (status = OrderStatusEnum.Accepted):
+        case OrderStatusEnum.Accepted:
             return 'Accepted';
 
-        case (status = OrderStatusEnum.Rejected):
+        case OrderStatusEnum.Rejected:
             return 'Rejected';
 
-        case (status = OrderStatusEnum.OnItsWay):
+        case OrderStatusEnum.OnItsWay:
             return 'On Its Way';
 
-        case (status = OrderStatusEnum.Complete):
+        case OrderStatusEnum.Complete:
             return 'Complete';
 
         default:
