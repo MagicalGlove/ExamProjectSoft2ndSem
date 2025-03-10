@@ -23,5 +23,5 @@ body:
 
         _The more clear the steps, the easier it is for us to understand!_
       render: bash
-      validations:
-        required: true
+    validations:
+      required: true
