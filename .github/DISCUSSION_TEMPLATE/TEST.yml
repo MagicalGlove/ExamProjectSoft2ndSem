@@ -1,55 +1,27 @@
-title: "[General] "
-labels: ["General Introduction"]
+title: "[Bug Discussion]"
+
+labels:
+  - bug
+
 body:
   - type: markdown
     attributes:
       value: |
-        This is text that will show up in the template!
+        **What’s the problem?**  
+        _Explain the problem clearly. What’s going wrong or not working?_
   - type: textarea
-    id: improvements
+    id: reproduce
     attributes:
-      label: Top 3 improvements
-      description: "What are the top 3 improvements we could make to this project?"
-      value: |
-        1.
-        2.
-        3.
+      label: "Steps to Reproduce"
+      description: "Detailed steps to reproduce the behavior, so that it can be easily diagnosed."
+      placeholder: |
+        1. _What was the first thing you did?_
+        2. _What did you do next?_
+        3. _What happened after that?_
+        4. _Keep adding steps until we know exactly how to reproduce the problem._
         ...
+
+        _The more clear the steps, the easier it is for us to understand!_
       render: bash
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: |
-        ## Markdown header
-        And some more markdown
-  - type: input
-    id: has-id
-    attributes:
-      label: Suggestions
-      description: A description about suggestions to help you
-    validations:
-      required: true
-  - type: dropdown
-    id: download
-    attributes:
-      label: Which area of this project could be most improved?
-      options:
-        - Documentation
-        - Pull request review time
-        - Bug fix time
-        - Release cadence
-    validations:
-      required: true
-  - type: checkboxes
-    attributes:
-      label: Check that box!
-      options:
-        - label: This one!
-          required: true
-        - label: I won't stop you if you check this one, too
-  - type: markdown
-    attributes:
-      value: |
-        ### The thrilling conclusion
-        _to our template_
+      validations:
+        required: true
