@@ -64,14 +64,6 @@ body:
         - Other
     validations:
       required: true
-  - type: input
-    id: otherBrowser
-    attributes:
-      label: " specify your browser"
-      description: "If you selected 'Other', please specify your browser here."
-      placeholder: "Enter your browser name"
-    validations:
-      required: false
   - type: dropdown
     id: browserInfo
     attributes:
@@ -89,6 +81,14 @@ body:
         - Other
     validations:
       required: true
+  - type: input
+    id: otherBrowser
+    attributes:
+      label: "Specify unlisted browser"
+      description: "If you selected 'Other', please specify your browser here."
+      placeholder: "Enter your browser name"
+    validations:
+      required: false
   - type: dropdown
     id: frequency
     attributes:
