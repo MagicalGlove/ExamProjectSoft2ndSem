@@ -34,7 +34,6 @@ body:
       render: bash
     validations:
       required: true
-
   - type: textarea
     id: bugDescription
     attributes:
@@ -66,7 +65,6 @@ body:
       label: How often does this happen?
       options:
         - label: Every single time
-          # required: true
         - label: Almost every time
         - label: Sometimes
         - label: Rarely
@@ -74,7 +72,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: reproduce
+    id: otherInfo
     attributes:
       label: "Any other helpful information?"
       description: "Is there anything else you think could help us understand or fix the problem that you haven't mentioned yet?"
