@@ -70,14 +70,14 @@ body:
       label: Which browser are you on?
       options:
         - Chrome
-        - Firefox
         - Safari
         - Edge
+        - Firefox
         - Opera
-        - Internet Explorer
         - Brave
         - Vivaldi
         - Tor Browser
+        - Internet Explorer
         - Other
     validations:
       required: true
