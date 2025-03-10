@@ -53,6 +53,7 @@ body:
     id: systemInfo
     attributes:
       label: Which system are you on?
+      description: "If your browser is not listed, please select 'Other' and specify your browser in the next question."
       options:
         - Windows 11
         - Windows 10
@@ -63,6 +64,14 @@ body:
         - Other
     validations:
       required: true
+  - type: input
+    id: otherBrowser
+    attributes:
+      label: " specify your browser"
+      description: "If you selected 'Other', please specify your browser here."
+      placeholder: "Enter your browser name"
+    validations:
+      required: false
   - type: dropdown
     id: browserInfo
     attributes:
@@ -80,14 +89,6 @@ body:
         - Other
     validations:
       required: true
-  - type: input
-    id: otherBrowser
-    attributes:
-      label: "Please specify your browser"
-      description: "If you selected 'Other', please specify your browser here."
-      placeholder: "Enter your browser name"
-    validations:
-      required: false
   - type: dropdown
     id: frequency
     attributes:
