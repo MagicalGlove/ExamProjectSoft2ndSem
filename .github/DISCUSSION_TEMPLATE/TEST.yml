@@ -9,15 +9,6 @@ body:
       value: |
         **What’s the problem?**  
         _Explain the problem clearly. What’s going wrong or not working?_
-  - type: dropdown
-    attributes:
-      label: "How serious is this bug?"
-      options:
-        - Low
-        - Medium
-        - High
-        - Critical
-      required: true
   - type: textarea
     id: reproduce
     attributes:
@@ -58,6 +49,17 @@ body:
         - IOS
         - Android
         - Other
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: How often does this happen?
+      options:
+        - label: Every single time
+        - label: Almost every time
+        - label: Sometimes
+        - label: Rarely
+        - label: Once in a blue moon
     validations:
       required: true
   - type: textarea
