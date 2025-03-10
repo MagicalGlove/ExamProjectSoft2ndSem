@@ -19,12 +19,12 @@ body:
 
         ---
 
-        **How to make it happen (Steps to Reproduce):**
+        **How to reproduce the issue (Steps to Reproduce):**
 
         1. _What was the first thing you did?_
         2. _What did you do next?_
         3. _What happened after that?_
-        4. _Keep adding steps until we know exactly how to make the problem happen._
+        4. _Keep adding steps until we know exactly how to reproduce the problem._
 
         _The more clear the steps, the easier it is for us to understand!_
 
@@ -40,20 +40,20 @@ body:
 
         ---
 
-        **Screenshots or Videos (if you have any):**  
+        **Screenshots or Videos (if available):**  
         _If you can, share any pictures or videos showing the problem. This can help a lot!_
 
         ---
 
-        **What device and software are you using?**  
+        **Device and Software Information:**  
         - **Device:** _For example: Phone, Laptop, Tablet_
         - **Operating System (OS):** _For example: Windows 10, iPhone 14, Android 11_
-        - **App Version (if you know it):** _For example: Version 1.2.3_
+        - **App Version (if available):** _For example: Version 1.2.3_
 
         ---
 
         **How often does this happen?**  
-        _Does it happen every time? Or only sometimes?_
+        _Does it happen every time, or only sometimes?_
 
         ---
 
@@ -84,18 +84,17 @@ body:
         **Important:**  
         _Please remember to be respectful and follow our [Code of Conduct]._
 
-  - type: input
+  - type: dropdown
     attributes:
       label: "How serious is this bug?"
-      description: "Select one from the following options."
       options:
-        - "Low"
-        - "Medium"
-        - "High"
-        - "Critical"
+        - Low
+        - Medium
+        - High
+        - Critical
       required: true
 
-  - type: input
+  - type: textarea
     attributes:
       label: "Frequency"
       description: "How often does this bug occur?"
